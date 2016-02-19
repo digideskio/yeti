@@ -1,5 +1,7 @@
 package strategy;
 
+import sensors.BasicColor;
+
 /**
  * Decides what tactics to follow to maximize our performance
  * React to immediate sensory inputs, deviating from the current tactics as needed 
@@ -10,7 +12,7 @@ public class Planner {
 	public Planner() {
 		/// TODO: Replace the default by a real tactic
 		/// First a GUI that asks for the start coordinate, then a real tactic
-		currentTactic = new PincerTactic();
+		currentTactic = new FollowLine(BasicColor.Red);
 	}
 	
 	/**
