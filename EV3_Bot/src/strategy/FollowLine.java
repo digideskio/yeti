@@ -14,8 +14,7 @@ public class FollowLine implements Tactic{
 	
 	@Override
 	public String getDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "FollowLine";
 	}
 
 	@Override
@@ -33,10 +32,16 @@ public class FollowLine implements Tactic{
 	@Override
 	public boolean perform() {
 		BasicColor courantColor = Bot.getSensorsCache().getColor();
-		if(courantColor != c)
+		DefaultPorts.getRightMotor().forward();
+		DefaultPorts.getLeftMotor().forward();
+		if(courantColor != c){
 			DefaultPorts.getRightMotor().setSpeed(180);
-		else
-			DefaultPorts.getLeftMotor().setSpeed(180);			
+			DefaultPorts.getLeftMotor().setSpeed(0);	
+		}
+		else{
+			DefaultPorts.getLeftMotor().setSpeed(180);	
+			DefaultPorts.getRightMotor().setSpeed(0);	
+		}
 		return false;
 	}
 
