@@ -7,9 +7,11 @@ import sensors.BasicColor;
 public class FollowLine implements Tactic{
 
 	private BasicColor c;
+	private BasicColor stopColor;
 	
-	public FollowLine (BasicColor color){
+	public FollowLine (BasicColor color, BasicColor stop){
 		c = color;
+		stopColor = stop;
 	}
 	
 	@Override
@@ -31,16 +33,20 @@ public class FollowLine implements Tactic{
 
 	@Override
 	public boolean perform() {
+		int speed = 360;
 		BasicColor courantColor = Bot.getSensorsCache().getColor();
 		DefaultPorts.getRightMotor().forward();
 		DefaultPorts.getLeftMotor().forward();
-		if(courantColor != c){
-			DefaultPorts.getRightMotor().setSpeed(180);
+		if(courantColor == stopColor){
 			DefaultPorts.getLeftMotor().setSpeed(0);	
-		}
-		else{
-			DefaultPorts.getLeftMotor().setSpeed(180);	
-			DefaultPorts.getRightMotor().setSpeed(0);	
+			DefaultPorts.getRightMotor().setSpeed(0);
+			return true;
+		}else if(courantColor != c){
+			DefaultPorts.getRightMotor().setSpeed(speed);
+			DefaultPorts.getLeftMotor().setSpeed(0);	
+		}else{
+			DefaultPorts.getLeftMotor().setSpeed(speed);	
+			DefaultPorts.getRightMotor().setSpeed(0);
 		}
 		return false;
 	}

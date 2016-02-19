@@ -12,7 +12,7 @@ public class Planner {
 	public Planner() {
 		/// TODO: Replace the default by a real tactic
 		/// First a GUI that asks for the start coordinate, then a real tactic
-		currentTactic = new FollowLine(BasicColor.Red);
+		currentTactic = new MainTactic();
 	}
 	
 	/**

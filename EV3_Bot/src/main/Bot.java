@@ -91,6 +91,7 @@ public class Bot {
 		println("Pressed: "+(cache.isButtonPressed()?"Yes":"No"), 2);
 		println("Distance: "+String.format("%.1f",sonarDistance)+"cm", 3);
 		println("Tactic: "+planner.getCurrentTacticName(), 4);
+		println("Color: "+cache.getColor(), 5);
 		
 		// 5. Don't sample inputs too often to slightly reduce chances of outliers
 		Delay.msDelay(10);
