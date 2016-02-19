@@ -39,5 +39,4 @@ public class NullTactic implements Tactic {
 	public void stop() {
 		stopped = true;
 	}
-	
 }

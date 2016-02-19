@@ -1,25 +1,15 @@
 package strategy;
 
-import lejos.hardware.motor.EV3LargeRegulatedMotor;
-import lejos.hardware.motor.Motor;
-import lejos.hardware.port.MotorPort;
-import lejos.robotics.navigation.DifferentialPilot;
-import lejos.utility.Delay;
 import main.Bot;
-import sensors.TouchSensor;
+import motor.BasicMotion;
 
-@SuppressWarnings("deprecation")
 public class PincerTactic implements Tactic{
 
-	private boolean stopped;
-	public EV3LargeRegulatedMotor pincer;
-	public DifferentialPilot pilot;
+	private boolean stopped,Pinceropened;
 	
 	PincerTactic() {
 		stopped = false;
-		pincer = new EV3LargeRegulatedMotor(MotorPort.B);
-		pilot =  new DifferentialPilot(2.1f, 4.4f, Motor.A, Motor.C, true);  // parameters in inches
-		
+		Pinceropened=false;
 	}
 	
 	@Override
@@ -38,41 +28,20 @@ public class PincerTactic implements Tactic{
 	}
 
 	@Override
-	public boolean perform1() {
-		openPincer();
+	public boolean perform() {
+		if(!Pinceropened){
+			BasicMotion.openClaw();
+			Pinceropened=true;
+		}
+		
 		if(stopped)
-			return false;
+			return true;
 
 		if (Bot.getSensorsCache().isButtonPressed()) {
-			closePincer();
-			turn(180);
-			movingForward(30);
+			BasicMotion.closeClaw();
+			return true;
 		}
-		return true;		
-	}
-	
-	public void openPincer(){
-		pincer.rotate(1200);
-	}
-	
-	public void closePincer(){
-		pincer.rotate(1200);
-	}
-	
-	public void turn(double angle){
-		pilot.rotate(angle);
-	}
-	
-	public void movingForward(double distance){
-		pilot.travel(distance);
-	}
-
-	public void turnLeft(double angle){
-		pilot.rotateLeft();
-	}
-	
-	public void turnRight(double angle){
-		pilot.rotateRight();
+		return false;		
 	}
 	
 	@Override
@@ -83,12 +52,6 @@ public class PincerTactic implements Tactic{
 	@Override
 	public void stop() {
 		stopped = true;
-	}
-
-	@Override
-	public boolean perform() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 	
 }

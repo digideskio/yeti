@@ -90,4 +90,5 @@ public class CrossLineTactic implements Tactic {
 	public void stop() {
 		stopped = true;
 	}
+
 }

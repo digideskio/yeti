@@ -47,6 +47,4 @@ public interface Tactic {
 	 * a result of calling stop().
 	 */
 	void stop();
-
-	boolean perform1();
 }
