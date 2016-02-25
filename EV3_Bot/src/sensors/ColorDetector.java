@@ -17,8 +17,8 @@ import lejos.robotics.SampleProvider;
  */
 public class ColorDetector implements Closeable {
 	private EV3ColorSensor cs;
-	private SampleProvider rgb;
-	private float[] samples;
+	private static SampleProvider rgb;
+	private static float[] samples;
 	
 	public ColorDetector() {
 		cs = new EV3ColorSensor(DefaultPorts.getColorSensor());
@@ -80,7 +80,7 @@ public class ColorDetector implements Closeable {
 	 * Returns some adjusted RGB values read from the sensor.
 	 * More meaningful than the raw RGB, but you should still use HSV instead.
 	 */
-	public Color getCookedRGB() {
+	public static Color getCookedRGB() {
 		rgb.fetchSample(samples, 0);
 		return new Color(Math.min((int)(samples[0]*956), 255), 
 						 Math.min((int)(samples[1]*638), 255), 
@@ -93,7 +93,7 @@ public class ColorDetector implements Closeable {
 	 * except the value is often very low and the saturation low-ish.
 	 * H is between 0-360 and S/V are between 0-100 (to match the GIMP color picker!)
 	 */
-	public ColorHSV getHSV() {
+	public static ColorHSV getHSV() {
 		float[] hsv = new float[3];
 		Color color = getCookedRGB();
 		java.awt.Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), hsv);
@@ -143,11 +143,11 @@ public class ColorDetector implements Closeable {
 	 * Assumes that the background (outside of the line) is Gray,
 	 * if the background is too colorful the function might think it's always on the line
 	 */
-	public int getLineDistance(BasicColor color) {
+	public static int getLineDistance(BasicColor color) {
 		return getLineDistance(color, BasicColor.Gray);
 	}
 	
-	public int getLineDistance(BasicColor color, BasicColor background) {
+	public static int getLineDistance(BasicColor color, BasicColor background) {
 		// Take the distance between the given color and gray and define it as 100 units,
 		// then clamp the distance between the current color and the target to 100 units.
 		// Only consider S and V because for low S/V, H becomes meaningless.
