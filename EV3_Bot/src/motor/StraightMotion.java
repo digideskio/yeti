@@ -46,7 +46,7 @@ public class StraightMotion {
 	}
 	
 	public void stop() {
-		if (isMoving)
+		if (!isMoving)
 			return;
 		
 		updateGPS();

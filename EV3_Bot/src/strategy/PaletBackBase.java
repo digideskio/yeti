@@ -12,11 +12,11 @@ public class PaletBackBase implements Tactic{
 	
 	PaletBackBase(){
 		stopped=false;
+		smotion = new StraightMotion();
 	}
 	@Override
 	public String getDisplayName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "PaletBackBase";
 	}
 
 	@Override
@@ -33,8 +33,10 @@ public class PaletBackBase implements Tactic{
 	
 	@Override
 	public boolean perform() {
-		smotion.start(true);
+		if (!smotion.isMoving())
+			smotion.start(true);
 		if(Bot.getSensorsCache().getColor()==BasicColor.White){
+			smotion.stop();
 			BasicMotion.openClaw(false);
 			return true;
 		}
