@@ -5,11 +5,14 @@ import sensors.BasicColor;
 public class MainTactic implements Tactic {
 	PincerTactic pincerTactic;
 	Tactic mainTactic;
-	
+	PaletBackBase goBackTactic;
+	private boolean paletCaptured;
 	
 	MainTactic() {
 		pincerTactic = new PincerTactic();
 		mainTactic = new PaletBackBase();
+		goBackTactic = new PaletBackBase();
+		paletCaptured=false;
 	}
 	
 	@Override
@@ -31,8 +34,14 @@ public class MainTactic implements Tactic {
 
 	@Override
 	public boolean perform() {
-		pincerTactic.perform();
-		return mainTactic.perform();
+		if(!paletCaptured){
+			paletCaptured = pincerTactic.perform();	
+			mainTactic.perform();
+		}
+		else {
+			paletCaptured = !goBackTactic.perform();
+		}
+		return false;
 	}
 
 	@Override
