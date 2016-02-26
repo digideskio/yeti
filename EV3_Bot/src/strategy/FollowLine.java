@@ -43,8 +43,8 @@ public class FollowLine implements Tactic{
 			DefaultPorts.getRightMotor().setSpeed(0);
 			return true;	
 		}else{
-			//turn left to find the current color
-			int dist = Bot.getSensorsCache().getLineDistance(curColor);
+			//turn left to find the searched color
+			int dist = Bot.getSensorsCache().getLineDistance(c);
 			int baseSpeed = 280, speedo = 180; 
 			DefaultPorts.getLeftMotor().setSpeed(baseSpeed+speedo*dist/100);
 			DefaultPorts.getRightMotor().setSpeed(baseSpeed+speedo*(100-dist)/100);
