@@ -6,9 +6,12 @@ public class MainTactic implements Tactic {
 	PincerTactic pincerTactic;
 	Tactic mainTactic;
 	
+	
 	MainTactic() {
 		pincerTactic = new PincerTactic();
+
 		mainTactic = new FollowLine(BasicColor.Red, BasicColor.Green);
+
 	}
 	
 	@Override
