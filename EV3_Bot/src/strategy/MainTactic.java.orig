@@ -10,9 +10,15 @@ public class MainTactic implements Tactic {
 	
 	MainTactic() {
 		pincerTactic = new PincerTactic();
-		mainTactic = new FollowLine(BasicColor.Red, BasicColor.Green);
+<<<<<<< HEAD
+		mainTactic = new PaletBackBase();
 		goBackTactic = new PaletBackBase();
 		paletCaptured=false;
+=======
+
+		mainTactic = new FollowLine(BasicColor.Red, BasicColor.Green);
+
+>>>>>>> a34e9b1d54d4276b8f2021aae8c1b3d3baaae8aa
 	}
 	
 	@Override
