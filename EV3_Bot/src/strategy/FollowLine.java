@@ -6,7 +6,7 @@ import sensors.BasicColor;
 import sensors.ColorDetector;
 
 public class FollowLine implements Tactic{
-
+	private AvoidFoe avoidfoe;
 	private BasicColor c;
 	private BasicColor stopColor;
 	
@@ -22,8 +22,8 @@ public class FollowLine implements Tactic{
 
 	@Override
 	public boolean handleObstacle() {
-		// TODO Auto-generated method stub
-		return false;
+		avoidfoe = new AvoidFoe();
+		return true;
 	}
 
 	@Override
@@ -34,6 +34,11 @@ public class FollowLine implements Tactic{
 
 	@Override
 	public boolean perform() {
+		if(avoidfoe != null) {
+			boolean result = avoidfoe.perform();
+			if (result)
+				avoidfoe = null;
+		}
 		BasicColor curColor = Bot.getSensorsCache().getColor();
 		DefaultPorts.getRightMotor().forward();
 		DefaultPorts.getLeftMotor().forward();
