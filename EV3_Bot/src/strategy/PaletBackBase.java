@@ -32,33 +32,9 @@ public class PaletBackBase implements Tactic{
 		return false;
 	}
 
-	/** Taking the first palet and bringin it to the camp
-	 * 
-	 */
-	public void takeFirstPalet(){
-		// methode avancer ??
-		BasicMotion.setSpeed(20);
-		BasicMotion.moveBy(10); // test avancer?	
-		BasicMotion.openClaw();
-		getPalet();
-		BasicMotion.closeClaw();
-		BasicMotion.rotate(90);
-		BasicMotion.moveBy(50); // methode avancer ?
-		BasicMotion.rotate(-90);
-		boolean cond = true;
-		putPalet(true);
-		
-		
-	}
+
 	
-	/** The bot go on till he finds a palet
-	 **/
-	public void getPalet(){
-		while(!Bot.getSensorsCache().isButtonPressed() && sensors.getHSV() != Color.WHITE){
-			pause();
-			BasicMotion.moveBy(50);
-		}
-	}
+
 	/** The bot check if he needs to stop if there's some obstacle in front
 	 **/
 	public void pause(){
@@ -85,12 +61,6 @@ public class PaletBackBase implements Tactic{
 			BasicMotion.moveBy(1);
 		}
 	}
-	@Override
-	public boolean perform() {
-		// TODO Auto-generated method stub
-		takeFirstPalet();
-		return false;
-	}
 
 	@Override
 	public void abort() {
@@ -102,6 +72,12 @@ public class PaletBackBase implements Tactic{
 	public void stop() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean perform() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
