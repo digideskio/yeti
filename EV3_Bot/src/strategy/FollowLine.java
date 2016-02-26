@@ -34,7 +34,6 @@ public class FollowLine implements Tactic{
 
 	@Override
 	public boolean perform() {
-		int speed = 360;
 		BasicColor curColor = Bot.getSensorsCache().getColor();
 		DefaultPorts.getRightMotor().forward();
 		DefaultPorts.getLeftMotor().forward();
@@ -42,24 +41,15 @@ public class FollowLine implements Tactic{
 			//stop yeti
 			DefaultPorts.getLeftMotor().setSpeed(0);	
 			DefaultPorts.getRightMotor().setSpeed(0);
-			return true;
-		}else if(curColor != c){
-			//turn right 
-			//yeti tries to find the current color by spinning round
-			DefaultPorts.getRightMotor().setSpeed(speed);
-			DefaultPorts.getLeftMotor().setSpeed(0);	
+			return true;	
 		}else{
 			//turn left to find the current color
-			DefaultPorts.getLeftMotor().setSpeed(speed);	
-			DefaultPorts.getRightMotor().setSpeed(0);
-			while (curColor == c) {
-				//go forward
-				int dist = ColorDetector.getLineDistance(curColor);
-				int baseSpeed = 280, speedo = 80; 
-				DefaultPorts.getLeftMotor().setSpeed(baseSpeed+speedo*dist/100);
-				DefaultPorts.getRightMotor().setSpeed(baseSpeed+speedo*(100-dist)/100);
-			}
+			int dist = Bot.getSensorsCache().getLineDistance(curColor);
+			int baseSpeed = 280, speedo = 180; 
+			DefaultPorts.getLeftMotor().setSpeed(baseSpeed+speedo*dist/100);
+			DefaultPorts.getRightMotor().setSpeed(baseSpeed+speedo*(100-dist)/100);
 		}
+		
 		return false;
 	}
 

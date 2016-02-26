@@ -1,5 +1,7 @@
 package sensors;
 
+import config.DefaultPorts;
+
 /**
  * Caches the data from sensors in a centralized location,
  * so that it can be queried quickly and with consistent results
@@ -35,6 +37,10 @@ public class SensorsCache {
 	
 	public BasicColor getColor() {
 		return cd.HSVtoColor(color);
+	}
+	
+	public int getLineDistance(BasicColor curColor) {
+		return cd.getLineDistance(curColor);
 	}
 	
 	public boolean isButtonPressed() {
