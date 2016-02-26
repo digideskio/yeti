@@ -3,6 +3,7 @@ package strategy;
 import config.DefaultPorts;
 import main.Bot;
 import sensors.BasicColor;
+import sensors.ColorDetector;
 
 public class FollowLine implements Tactic{
 
@@ -33,21 +34,22 @@ public class FollowLine implements Tactic{
 
 	@Override
 	public boolean perform() {
-		int speed = 360;
-		BasicColor courantColor = Bot.getSensorsCache().getColor();
+		BasicColor curColor = Bot.getSensorsCache().getColor();
 		DefaultPorts.getRightMotor().forward();
 		DefaultPorts.getLeftMotor().forward();
-		if(courantColor == stopColor){
+		if(curColor == stopColor){
+			//stop yeti
 			DefaultPorts.getLeftMotor().setSpeed(0);	
 			DefaultPorts.getRightMotor().setSpeed(0);
-			return true;
-		}else if(courantColor != c){
-			DefaultPorts.getRightMotor().setSpeed(speed);
-			DefaultPorts.getLeftMotor().setSpeed(0);	
+			return true;	
 		}else{
-			DefaultPorts.getLeftMotor().setSpeed(speed);	
-			DefaultPorts.getRightMotor().setSpeed(0);
+			//turn left to find the current color
+			int dist = Bot.getSensorsCache().getLineDistance(curColor);
+			int baseSpeed = 280, speedo = 180; 
+			DefaultPorts.getLeftMotor().setSpeed(baseSpeed+speedo*dist/100);
+			DefaultPorts.getRightMotor().setSpeed(baseSpeed+speedo*(100-dist)/100);
 		}
+		
 		return false;
 	}
 
