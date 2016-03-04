@@ -31,7 +31,7 @@ public class AvoidFoe implements Tactic {
 
 	/**
 	 * If Yeti see a foe, he had to avoid it. Yeti goes to right (90°) after
-	 * goes ahead (180*4 cm) and goes to left
+	 * goes ahead (180*4 cm) and goes to left the robot returns to its line
 	 */
 	@Override
 	public boolean perform() {
@@ -39,9 +39,9 @@ public class AvoidFoe implements Tactic {
 		BasicMotion.moveBy(180 * 4);
 		BasicMotion.rotate(-90);
 		BasicMotion.moveBy(180 * 6);
-		BasicMotion.rotate(90); // +90 so it is going to right
-		BasicMotion.moveBy(180 * 4);
 		BasicMotion.rotate(-90);
+		BasicMotion.moveBy(180 * 4);
+		BasicMotion.rotate(90);
 		return true;
 	}
 
