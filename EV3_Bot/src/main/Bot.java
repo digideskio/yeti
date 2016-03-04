@@ -71,17 +71,17 @@ public class Bot {
 		
 		// 2. Handle exceptional events
 		float sonarDistance = cache.getSonarDistance();
-		if (sonarDistance <= 30.f) {
-			// At 30cm we're getting close to an object, but
-			// still have some time to swerve around and we shouldn't
-			// get false positives from non-critical obstacles
-			planner.handleObstacle();
-		} else if (sonarDistance <= 10.f) {
+		if (sonarDistance <= 10.f) {
 			// With claws closed we have direct contact at just under 8cm,
 			// so anywhere under 10cm is guaranteed close contact
 			// With claws open we risk reaching 0cm with gives +inf, 
 			// so 10cm is already getting pretty dangerous
 			planner.handleContact();
+		} else if (sonarDistance <= 30.f) {
+			// At 30cm we're getting close to an object, but
+			// still have some time to swerve around and we shouldn't
+			// get false positives from non-critical obstacles
+			planner.handleObstacle();
 		}
 		
 		// 3. Perform our tactics
