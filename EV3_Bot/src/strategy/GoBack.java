@@ -2,13 +2,12 @@ package strategy;
 
 import motor.BasicMotion;
 
-/* This class can be the same as AvoidWall. Because, Yeti doesn't make a difference 
- * between both.
- */
+public class GoBack implements Tactic {
 
-public class AvoidFoe implements Tactic {
+	private boolean wall;
 
-	public AvoidFoe() {
+	public GoBack() {
+		this.wall = true;
 	}
 
 	@Override
@@ -30,18 +29,15 @@ public class AvoidFoe implements Tactic {
 	}
 
 	/**
-	 * If Yeti see a foe, he had to avoid it. Yeti goes to right (90°) after
-	 * goes ahead (180*4 cm) and goes to left
+	 * The robot need to back off before chose another strategy.
+	 * 
+	 * Search a line to begin another strategy
 	 */
 	@Override
 	public boolean perform() {
-		BasicMotion.rotate(90); // +90 so it is going to right
-		BasicMotion.moveBy(180 * 4);
-		BasicMotion.rotate(-90);
-		BasicMotion.moveBy(180 * 6);
-		BasicMotion.rotate(90); // +90 so it is going to right
-		BasicMotion.moveBy(180 * 4);
-		BasicMotion.rotate(-90);
+		BasicMotion.rotate(180);
+		BasicMotion.moveBy(10);
+		this.wall = false;
 		return true;
 	}
 

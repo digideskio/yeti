@@ -3,47 +3,51 @@ package strategy;
 import main.Bot;
 import motor.BasicMotion;
 
-public class PincerTactic implements Tactic{
+public class PincerTactic implements Tactic {
 
-	private boolean stopped,Pinceropened;
-	
+	private boolean stopped, Pinceropened;
+	private AvoidFoe avoidfoe;
+	private GoBack goback;
+
 	PincerTactic() {
 		stopped = false;
-		Pinceropened=false;
+		Pinceropened = false;
 	}
-	
+
 	@Override
 	public String getDisplayName() {
 		return "Nothing";
 	}
-	
+
 	@Override
 	public boolean handleObstacle() {
+		avoidfoe = new AvoidFoe();
 		return true;
 	}
 
 	@Override
 	public boolean handleContact() {
+		goback = new GoBack();
 		return true;
 	}
 
 	@Override
 	public boolean perform() {
-		if(!Pinceropened){
+		if (!Pinceropened) {
 			BasicMotion.openClaw();
-			Pinceropened=true;
+			Pinceropened = true;
 		}
-		
-		if(stopped)
+
+		if (stopped)
 			return true;
 
 		if (Bot.getSensorsCache().isButtonPressed()) {
 			BasicMotion.closeClaw(false);
 			return true;
 		}
-		return false;		
+		return false;
 	}
-	
+
 	@Override
 	public void abort() {
 		stopped = true;
@@ -53,5 +57,5 @@ public class PincerTactic implements Tactic{
 	public void stop() {
 		stopped = true;
 	}
-	
+
 }
