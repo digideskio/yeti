@@ -1,19 +1,22 @@
 package strategy;
 
-import sensors.BasicColor;
 import main.Bot;
 import motor.BasicMotion;
 import motor.StraightMotion;
+import sensors.BasicColor;
 
-public class PaletBackBase implements Tactic{
-	
+public class PaletBackBase implements Tactic {
+
 	private boolean stopped;
 	private StraightMotion smotion;
-	
-	PaletBackBase(){
-		stopped=false;
+	private AvoidFoe avoidfoe;
+	private GoBack goback;
+
+	PaletBackBase() {
+		stopped = false;
 		smotion = new StraightMotion();
 	}
+
 	@Override
 	public String getDisplayName() {
 		return "PaletBackBase";
@@ -21,41 +24,41 @@ public class PaletBackBase implements Tactic{
 
 	@Override
 	public boolean handleObstacle() {
-		// TODO Auto-generated method stub
-		return false;
+		avoidfoe = new AvoidFoe();
+		return true;
 	}
 
 	@Override
 	public boolean handleContact() {
-		// TODO Auto-generated method stubWHITE
-		return false;
+		goback = new GoBack();
+		return true;
 	}
-	
+
 	@Override
 	public boolean perform() {
 		if (!smotion.isMoving())
 			smotion.start(true);
-		if(Bot.getSensorsCache().getColor()==BasicColor.White){
+		if (Bot.getSensorsCache().getColor() == BasicColor.White) {
 			smotion.stop();
 			BasicMotion.openClaw(false);
 			return true;
 		}
-		if(stopped){
+		if (stopped) {
 			return true;
-		}	
+		}
 		return false;
 	}
 
 	@Override
 	public void abort() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void stop() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

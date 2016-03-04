@@ -30,6 +30,8 @@ public class GoBack implements Tactic {
 
 	/**
 	 * The robot need to back off before chose another strategy.
+	 * 
+	 * Search a line to begin another strategy
 	 */
 	@Override
 	public boolean perform() {

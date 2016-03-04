@@ -6,7 +6,7 @@ import sensors.BasicColor;
 
 public class FollowLine implements Tactic {
 	private AvoidFoe avoidfoe;
-	private GoBack turn;
+	private GoBack goback;
 	private BasicColor c;
 	private BasicColor stopColor;
 
@@ -28,7 +28,7 @@ public class FollowLine implements Tactic {
 
 	@Override
 	public boolean handleContact() {
-		turn = new GoBack();
+		goback = new GoBack();
 		return true;
 	}
 
