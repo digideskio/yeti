@@ -10,6 +10,7 @@ import sensors.BasicColor;
  * 		 and assume that we start in the middle of a cell, not at 0,0
  */
 public class PositionTracker {
+	static final double DEG2RAD = (2*Math.PI)/360.;
 	// Defines the vertical and horizontal lines of the terrain
 	static final BasicColor[] hlines = {BasicColor.White, BasicColor.Green, BasicColor.Black, 
 							 			BasicColor.Blue, BasicColor.White},
@@ -58,8 +59,8 @@ public class PositionTracker {
 	 * Call when the robot moved by distance units in the current direction  
 	 */
 	public void movedBy(int distance) {
-		rawy += Math.sin(orientation.getAngle()) * distance;
-		rawx += Math.cos(orientation.getAngle()) * distance;
+		rawy += Math.sin(orientation.getAngle() * DEG2RAD) * distance;
+		rawx += Math.cos(orientation.getAngle() * DEG2RAD) * distance;
 	}
 	
 	/**
@@ -82,8 +83,8 @@ public class PositionTracker {
 	/**
 	 * Gets a printable raw x/y position
 	 */
-	public String getRawPosRotString() {
-		return ""+rawx+","+rawy+","+orientation.getAngle()+"°";
+	public String getRawPosString() {
+		return ""+rawx+";"+rawy;
 	}
 	
 	/**

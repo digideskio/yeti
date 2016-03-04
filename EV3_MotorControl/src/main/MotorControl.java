@@ -49,7 +49,10 @@ public class MotorControl {
 		
 		StraightMotion sm = new StraightMotion();
 		//sm.start(true);
-		BasicMotion.moveBy(1100);
+		BasicMotion.rotate(-45);
+		BasicMotion.moveBy(1600);
+		BasicMotion.rotate(45);
+		BasicMotion.moveBy(1600);
 		
 		while (Button.ESCAPE.isUp()) {
 			if (Button.ENTER.isDown())
@@ -58,7 +61,8 @@ public class MotorControl {
 			println("Tacho L:"+Motor.A.getTachoCount(), 2);
 			println("Tacho R:"+Motor.D.getTachoCount(), 3);
 			println("Tacho C:"+Motor.C.getTachoCount(), 4);
-			println("Pos:"+gps.getRawPosRotString(), 5);
+			println("Pos:"+gps.getRawPosString(), 5);
+			println("Rot:"+gps.getOrientation().getAngle()+"°", 6);
 			Delay.msDelay(50);
 		}
 		
