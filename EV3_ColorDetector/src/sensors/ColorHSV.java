@@ -1,4 +1,4 @@
-package color;
+package sensors;
 
 /**
  * Represents a color in HSV format

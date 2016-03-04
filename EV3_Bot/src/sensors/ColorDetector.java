@@ -1,5 +1,6 @@
 package sensors;
 import java.io.Closeable;
+
 import config.DefaultPorts;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
@@ -112,22 +113,24 @@ public class ColorDetector implements Closeable {
 		/// much better than the official one, but it needs tuning for the terrain
 		if (V <= 1)
 			return BasicColor.None;
-		else if (S <= 25 && V >= 4 && V <= 30)
-			return BasicColor.Gray;
-		else if (S <= 70 && V <= 4)
+		else if (V <= 15)
 			return BasicColor.Black;
-		else if (S <= 50 && V >= 40)
+		else if (S <= 40 && V >= 30)
 			return BasicColor.White;
-		else if (H <= 15 || H >= 300)
-			return BasicColor.Red;
-		else if (H >= 185)
-			return BasicColor.Blue;
-		else if (H >= 60)
-			return BasicColor.Green;
-		else if (H >= 15)
-			return BasicColor.Yellow;
+		else if (S > 40) {
+			if ((H <= 30 || H >= 300) && S >= 60)
+				return BasicColor.Red;
+			else if (H >= 150)
+				return BasicColor.Blue;
+			else if (H >= 75 && S >= 50)
+				return BasicColor.Green;
+			else if (H >= 40 && S >= 55)
+				return BasicColor.Yellow;
+			else
+				return BasicColor.Gray;
+		}
 		else
-			return BasicColor.None;
+			return BasicColor.Gray;
 	}
 	
 	/**

@@ -1,8 +1,8 @@
 package main;
+import sensors.ColorDetector;
 import config.DefaultPorts;
 import motor.BasicMotion;
 import gps.PositionTracker;
-import sensors.ColorDetector;
 import sensors.SensorsCache;
 import sensors.SonarSensor;
 import sensors.TouchSensor;

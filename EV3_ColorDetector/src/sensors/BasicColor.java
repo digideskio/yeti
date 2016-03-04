@@ -1,4 +1,4 @@
-package color;
+package sensors;
 
 
 /**
@@ -47,6 +47,19 @@ public enum BasicColor {
 			return new ColorHSV(70,80,15);
 		default:
 			return new ColorHSV(0,0,0);
+		}
+	}
+	
+	/**
+	 * Returns true if this is a foreground line color of the terrain
+	 */
+	public boolean isForeground() {
+		switch(this) {
+		case Gray:
+		case None:
+			return false;
+		default:
+			return true;
 		}
 	}
 }
