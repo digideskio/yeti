@@ -1,11 +1,13 @@
-package motion;
+package motor;
 
 import config.DefaultPorts;
-import lejos.hardware.motor.Motor;
 import lejos.hardware.motor.NXTRegulatedMotor;
+import main.MotorControl;
 
 /**
  * Provides static functions for basic robot motion
+ * None of the provided functions reset the tachometers
+ * TODO: Update the GPS with this information
  */
 public class BasicMotion {
 	private static NXTRegulatedMotor lm = DefaultPorts.getLeftMotor(),
@@ -26,6 +28,7 @@ public class BasicMotion {
 		lm.endSynchronization();
 		if (waitForCompletion)
 			rm.waitComplete();
+		MotorControl.getGPS().rotatedBy(deg);
 	}
 	
 	/**
@@ -37,6 +40,7 @@ public class BasicMotion {
 		int accelDist = 50, decelDist = 180;
 		int startTacho = lm.getTachoCount();
 		int diff = 0;
+		MotorControl.getGPS().movedBy(units);
 		lm.synchronizeWith(new NXTRegulatedMotor[]{rm});
 		
 		// Set slow start speed and accelerate later
@@ -75,7 +79,7 @@ public class BasicMotion {
 
 	/** Open the front claw */
 	public static void openClaw() {
-		openClaw(true);
+		openClaw(false);
 	}
 	public static void openClaw(boolean waitForCompletion) {
 		claw.setSpeed(claw.getMaxSpeed());
@@ -84,7 +88,7 @@ public class BasicMotion {
 	
 	/** Close the front claw */
 	public static void closeClaw() {
-		closeClaw(true);
+		closeClaw(false);
 	}
 	public static void closeClaw(boolean waitForCompletion) {
 		claw.setSpeed(claw.getMaxSpeed());

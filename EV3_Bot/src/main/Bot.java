@@ -88,7 +88,7 @@ public class Bot {
 		planner.performTactics();
 		
 		// 4. Print status
-		println("Pos: "+gps.getPosDescription(), 1);
+		println("Pos: "+gps.getRawPosRotString()+" "+gps.getPosDescription(), 1);
 		println("Pressed: "+(cache.isButtonPressed()?"Yes":"No"), 2);
 		println("Distance: "+String.format("%.1f",sonarDistance)+"cm", 3);
 		println("Tactic: "+planner.getCurrentTacticName(), 4);
