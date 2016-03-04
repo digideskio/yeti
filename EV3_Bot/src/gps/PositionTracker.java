@@ -46,12 +46,27 @@ public class PositionTracker {
 		return orientation;
 	}
 	
+	public int getRawX() {
+		return rawx;
+	}
+	
+	public int getRawY() {
+		return rawy;
+	}
+	
 	/**
 	 * Call when the robot moved by distance units in the current direction  
 	 */
 	public void movedBy(int distance) {
 		rawy += Math.sin(orientation.getAngle()) * distance;
 		rawx += Math.cos(orientation.getAngle()) * distance;
+	}
+	
+	/**
+	 * Call when the robot rotated by deg degrees
+	 */
+	public void rotatedBy(int deg) {
+		orientation.rotate(deg);
 	}
 
 	/**
@@ -62,6 +77,13 @@ public class PositionTracker {
 		if (followedLine != BasicColor.None)
 			pos += '/'+followedLine.toString();
 		return pos;
+	}
+	
+	/**
+	 * Gets a printable raw x/y position
+	 */
+	public String getRawPosRotString() {
+		return ""+rawx+","+rawy+","+orientation.getAngle()+"°";
 	}
 	
 	/**

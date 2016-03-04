@@ -15,6 +15,13 @@ public class DefaultPorts {
 	public static Port getColorSensor() {
 		return LocalEV3.get().getPort("S4");
 	}
+	public static Port getTouchSensor() {
+		return LocalEV3.get().getPort("S1");
+	}
+	public static Port getUltrasonicSensor() {
+		return LocalEV3.get().getPort("S2");
+	}
+	
 	public static NXTRegulatedMotor getLeftMotor() {
 		return Motor.A;
 	}

@@ -1,14 +1,16 @@
 package main;
-
+import config.DefaultPorts;
+import motor.BasicMotion;
 import gps.PositionTracker;
-import lejos.hardware.Button;
-import lejos.hardware.lcd.LCD;
-import lejos.utility.Delay;
 import sensors.ColorDetector;
 import sensors.SensorsCache;
 import sensors.SonarSensor;
 import sensors.TouchSensor;
 import strategy.Planner;
+import lejos.hardware.Button;
+import lejos.hardware.lcd.LCD;
+import lejos.utility.Delay;
+
 
 public class Bot {
 	private static Planner planner;
@@ -71,7 +73,7 @@ public class Bot {
 		if (sonarDistance <= 10.f) {
 			// With claws closed we have direct contact at just under 8cm,
 			// so anywhere under 10cm is guaranteed close contact
-			// With claws open we risk reaching 0cm with gives +inf,
+			// With claws open we risk reaching 0cm with gives +inf, 
 			// so 10cm is already getting pretty dangerous
 			planner.handleContact();
 		} else if (sonarDistance <= 30.f) {
@@ -85,14 +87,13 @@ public class Bot {
 		planner.performTactics();
 
 		// 4. Print status
-		println("Pos: " + gps.getPosDescription(), 1);
-		println("Pressed: " + (cache.isButtonPressed() ? "Yes" : "No"), 2);
-		println("Distance: " + String.format("%.1f", sonarDistance) + "cm", 3);
-		println("Tactic: " + planner.getCurrentTacticName(), 4);
-		println("Color: " + cache.getColor(), 5);
-
-		// 5. Don't sample inputs too often to slightly reduce chances of
-		// outliers
+		println("Pos: "+gps.getRawPosRotString()+" "+gps.getPosDescription(), 1);
+		println("Pressed: "+(cache.isButtonPressed()?"Yes":"No"), 2);
+		println("Distance: "+String.format("%.1f",sonarDistance)+"cm", 3);
+		println("Tactic: "+planner.getCurrentTacticName(), 4);
+		println("Color: "+cache.getColor(), 5);
+		
+		// 5. Don't sample inputs too often to slightly reduce chances of outliers
 		Delay.msDelay(10);
 	}
 }

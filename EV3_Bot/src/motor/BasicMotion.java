@@ -2,6 +2,7 @@ package motor;
 
 import config.DefaultPorts;
 import lejos.hardware.motor.NXTRegulatedMotor;
+import main.Bot;
 
 /**
  * Provides static functions for basic robot motion
@@ -27,6 +28,7 @@ public class BasicMotion {
 		lm.endSynchronization();
 		if (waitForCompletion)
 			rm.waitComplete();
+		Bot.getGPS().rotatedBy(deg);
 	}
 	
 	/**
@@ -38,6 +40,7 @@ public class BasicMotion {
 		int accelDist = 50, decelDist = 180;
 		int startTacho = lm.getTachoCount();
 		int diff = 0;
+		Bot.getGPS().movedBy(units);
 		lm.synchronizeWith(new NXTRegulatedMotor[]{rm});
 		
 		// Set slow start speed and accelerate later
