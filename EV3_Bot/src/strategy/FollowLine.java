@@ -39,6 +39,11 @@ public class FollowLine implements Tactic {
 			if (result)
 				avoidfoe = null;
 		}
+		if (goback != null) {
+			boolean res = goback.perform();
+			if (res)
+				goback = null;
+		}
 		BasicColor curColor = Bot.getSensorsCache().getColor();
 		DefaultPorts.getRightMotor().forward();
 		DefaultPorts.getLeftMotor().forward();

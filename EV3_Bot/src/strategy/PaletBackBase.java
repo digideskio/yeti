@@ -36,6 +36,16 @@ public class PaletBackBase implements Tactic {
 
 	@Override
 	public boolean perform() {
+		if (avoidfoe != null) {
+			boolean result = avoidfoe.perform();
+			if (result)
+				avoidfoe = null;
+		}
+		if (goback != null) {
+			boolean res = goback.perform();
+			if (res)
+				goback = null;
+		}
 		if (!smotion.isMoving())
 			smotion.start(true);
 		if (Bot.getSensorsCache().getColor() == BasicColor.White) {
