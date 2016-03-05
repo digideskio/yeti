@@ -1,7 +1,7 @@
 
+import sensors.ColorDetector;
 import config.DefaultPorts;
-import color.ColorDetector;
-import color.ColorHSV;
+import sensors.ColorHSV;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.Color;
@@ -20,7 +20,7 @@ public class ColorTool {
 	 * and it's practically meaningless without normalization.
 	 */
 	public static void main(String[] args) {
-		ColorDetector cd = new ColorDetector(DefaultPorts.getColorSensor());
+		ColorDetector cd = new ColorDetector();
 		println("Color sensor", 1);
 		println("Enter for RGB/HSV", 2);
 		
