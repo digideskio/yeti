@@ -8,20 +8,19 @@ import main.Bot;
 
 public class PaletPosition {
 
-	private int nbLigne;
-	private int coordX;
-	private int coordY;
-	private Palet[] palets;
+	private Palet[] palets;		//contains all discs 
+	private static int numberOfDiscs;
 	
-	int goToX;
+	int goToX;	
 	int goToY;
 	
-	static int xPalet = -1;
-	static int yPalet = -1;
+	static int xCapturedDisc = -1;
+	static int yCapturedDisc = -1;
 	
 	
-	PaletPosition(int nbLigne) {
-		this.palets = new Palet[nbLigne];
+	PaletPosition(int numberOfDiscs) {
+		this.palets = new Palet[numberOfDiscs];
+		this.palets[0] = new Palet(1084, 2009);
 	}
 
 	public int getGoToX() {
@@ -33,25 +32,26 @@ public class PaletPosition {
 	}
 	
 	public int getxPalet() {
-		return xPalet;
+		return xCapturedDisc;
 	}
 
 	public int getyPalet() {
-		return yPalet;
+		return yCapturedDisc;
 	}
 
-	public boolean nearestPalet() {		
-		int distMin = -1;
+	public boolean nearestPalet() {	
+		upDateCapturedDiscs();
+		double distMin = 1000000;		//mettre la plus grande distance + 1 ici 	
 		int ligne = -1, column = -1;		
-		for (int l = 0; l < nbLigne; l++) {
-			for (int c = 0; c < nbLigne ; c++) {
-				int dist = Math.max(Math.abs(l - coordX), Math.abs(c - coordY));
-				if (dist < distMin) {
+		for (int i = 0; i < numberOfDiscs; i++) {
+				int compX = palets[i].getXdisc() - Bot.getGPS().getRawX();
+				int compY = palets[i].getYdisc() - Bot.getGPS().getRawY();
+				double dist = Math.sqrt(compX*compX + compY*compY);
+				if (dist < distMin && palets[i].isCaptured() == false) {
 					distMin = dist;
-					ligne = l;
-					column = c;
+					ligne = palets[i].getXdisc();
+					column = palets[i].getYdisc();
 				}	
-			}
 		}	
 		this.goToX = ligne;
 		this.goToY = column;
@@ -60,10 +60,14 @@ public class PaletPosition {
 	}
 	
 	public static void position() {
-		xPalet = Bot.getGPS().getRawX();
-		yPalet = Bot.getGPS().getRawY();
-		
+		xCapturedDisc = Bot.getGPS().getRawX();
+		yCapturedDisc = Bot.getGPS().getRawY();	
 	}
 	
-	
+	public void upDateCapturedDiscs() {		// /!\ GERER LES MARGES D'ERREUR ICI !!!!!!! Egalites fausses
+		for (int i = 0; i < numberOfDiscs; i++) 
+			if ( palets[i].getXdisc() == xCapturedDisc && 
+					palets[i].getYdisc() == yCapturedDisc) 
+				palets[i].setCaptured(true);				
+	}	
 }
