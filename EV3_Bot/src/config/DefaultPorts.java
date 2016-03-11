@@ -13,10 +13,10 @@ import lejos.hardware.port.Port;
  */
 public class DefaultPorts {
 	public static Port getColorSensor() {
-		return LocalEV3.get().getPort("S4");
+		return LocalEV3.get().getPort("S1");
 	}
 	public static Port getTouchSensor() {
-		return LocalEV3.get().getPort("S1");
+		return LocalEV3.get().getPort("S3");
 	}
 	public static Port getUltrasonicSensor() {
 		return LocalEV3.get().getPort("S2");
@@ -26,9 +26,9 @@ public class DefaultPorts {
 		return Motor.A;
 	}
 	public static NXTRegulatedMotor getRightMotor() {
-		return Motor.D;
+		return Motor.C;
 	}
 	public static NXTRegulatedMotor getClawMotor() {
-		return Motor.C;
+		return Motor.B;
 	}
 }
