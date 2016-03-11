@@ -19,8 +19,18 @@ public class PaletPosition {
 	
 	
 	PaletPosition(int numberOfDiscs) {
-		this.palets = new Palet[numberOfDiscs];
-		this.palets[0] = new Palet(1084, 2009);
+		int height = 1260;
+		int width = 1050;
+		PaletPosition.palets = new Palet[numberOfDiscs];
+		PaletPosition.palets[0] = new Palet(width*1,height*1);
+		PaletPosition.palets[1] = new Palet(width*1,height*2);
+		PaletPosition.palets[2] = new Palet(width*1,height*3);
+		PaletPosition.palets[3] = new Palet(width*2,height*1);
+		PaletPosition.palets[4] = new Palet(width*2,height*2);
+		PaletPosition.palets[5] = new Palet(width*2,height*3);
+		PaletPosition.palets[6] = new Palet(width*3,height*1);
+		PaletPosition.palets[7] = new Palet(width*3,height*2);
+		PaletPosition.palets[8] = new Palet(width*3,height*3);
 	}
 
 	public int getGoToX() {
