@@ -5,6 +5,7 @@ public class Orientation {
 	/// We consider 0 degrees to be the direction when
 	/// looking at the red line from the yellow line
 	private float worldYaw;
+	private boolean isGreen;
 	
 	/**
 	 * Constructs an orientation from an angle relative to the world
@@ -19,11 +20,19 @@ public class Orientation {
 	 * if false it starts from the blue side (opposite orientation).
 	 */
 	public Orientation(boolean isGreen) {
+		this.isGreen = isGreen;
 		worldYaw = isGreen ? 90 : 270;
 	}
 	
 	public float getAngle() {
 		return worldYaw;
+	}
+	
+	public float diffTowardsTarget() {
+		if (isGreen)
+			return diff(0, 1);
+		else
+			return diff(0, -1);
 	}
 	
 	/**

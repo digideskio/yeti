@@ -11,10 +11,12 @@ public class PaletBackBase implements Tactic {
 	private StraightMotion smotion;
 	private AvoidFoe avoidfoe;
 	private GoBack goback;
-
+	private MoveToTactic gobase;
+	
 	PaletBackBase() {
 		stopped = false;
 		smotion = new StraightMotion();
+		gobase = new MoveToTactic(Bot.getGPS().getRawX()+(1050/2),Bot.getGPS().getRawY()+(1280/2));
 	}
 
 	@Override
@@ -24,12 +26,14 @@ public class PaletBackBase implements Tactic {
 
 	@Override
 	public boolean handleObstacle() {
+		smotion.stop();
 		avoidfoe = new AvoidFoe();
 		return true;
 	}
 
 	@Override
 	public boolean handleContact() {
+		smotion.stop();
 		goback = new GoBack();
 		return true;
 	}
@@ -46,8 +50,19 @@ public class PaletBackBase implements Tactic {
 			if (res)
 				goback = null;
 		}
+		
+		if(gobase != null){
+			if (gobase.perform())
+				gobase = null;
+			return false;
+		}
+		float angleDiff = Bot.getGPS().getOrientation().diffTowardsTarget();
+		if (angleDiff >= 2.)
+			BasicMotion.rotate((int)angleDiff, true);
+		
 		if (!smotion.isMoving())
 			smotion.start(true);
+		
 		if (Bot.getSensorsCache().getColor() == BasicColor.White) {
 			smotion.stop();
 			BasicMotion.openClaw(false);
