@@ -39,9 +39,12 @@ public class Orientation {
 	 * face towards that vector.
 	 */
 	public float diff(int x, int y) {
-		// First get the angle of the vector with 0
-		return 0;
+		if (x==0 && y==0)
+			return 0;
 		
+		// First get the angle of the vector with 0
+		float vecAngle = (float)((Math.atan2(y, x) * 360./(2*Math.PI) + 360.) % 360.);
+		return (vecAngle - worldYaw) % 360.f;
 	}
 	
 	public void setAngle(float degrees) {

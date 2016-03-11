@@ -10,7 +10,7 @@ public class MainTactic implements Tactic {
 	
 	MainTactic() {
 		pincerTactic = new PincerTactic();
-		mainTactic = new FollowLine(BasicColor.Red, BasicColor.Green);
+		mainTactic = new MoveToTactic(0, 420);
 		goBackTactic = new PaletBackBase();
 		paletCaptured=false;
 	}
@@ -35,7 +35,7 @@ public class MainTactic implements Tactic {
 	@Override
 	public boolean perform() {
 		if(!paletCaptured){
-			paletCaptured = pincerTactic.perform();	
+			//paletCaptured = pincerTactic.perform();	
 			mainTactic.perform();
 		}
 		else {

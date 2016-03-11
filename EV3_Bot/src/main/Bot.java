@@ -19,6 +19,7 @@ public class Bot {
 	private static TouchSensor button;
 	private static SonarSensor sonar;
 	private static SensorsCache cache;
+	private static int FPS = 0;
 
 	private static void println(String text, int y) {
 		String padding = "                    ";
@@ -42,12 +43,12 @@ public class Bot {
 	}
 
 	public static void main(String[] args) {
-		planner = new Planner();
 		cd = new ColorDetector();
 		gps = new PositionTracker(0, 0);
 		button = new TouchSensor();
 		sonar = new SonarSensor();
 		cache = new SensorsCache(cd, button, sonar);
+		planner = new Planner();
 
 		println("Yeti Bot", 0);
 
@@ -87,11 +88,14 @@ public class Bot {
 		planner.performTactics();
 
 		// 4. Print status
-		println("Pos: "+gps.getRawPosString()+" "+gps.getPosDescription(), 1);
-		println("Pressed: "+(cache.isButtonPressed()?"Yes":"No"), 2);
-		println("Distance: "+String.format("%.1f",sonarDistance)+"cm", 3);
-		println("Tactic: "+planner.getCurrentTacticName(), 4);
-		println("Color: "+cache.getColor(), 5);
+		println("Pos:"+gps.getRawPosString()+" "+gps.getPosDescription(), 0);
+		println("Rot:"+gps.getOrientation().getAngle(), 1);
+		println("Pressed:"+(cache.isButtonPressed()?"Yes":"No"), 2);
+		println("Distance:"+String.format("%.1f",sonarDistance)+"cm", 3);
+		println("Tac:"+planner.getCurrentTacticName(), 4);
+		println("Color:"+cache.getColor(), 5);
+		println("FPS: "+FPS, 6);
+		FPS += 1;
 		
 		// 5. Don't sample inputs too often to slightly reduce chances of outliers
 		Delay.msDelay(10);

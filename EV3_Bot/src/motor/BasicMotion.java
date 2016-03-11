@@ -25,8 +25,8 @@ public class BasicMotion {
 		lm.startSynchronization();
 		lm.setSpeed(360);
 		rm.setSpeed(360);
-		lm.rotate(deg*2, true);
-		rm.rotate(-deg*2, true);
+		lm.rotate(-deg*2, true);
+		rm.rotate(deg*2, true);
 		lm.endSynchronization();
 		if (waitForCompletion)
 			rm.waitComplete();

@@ -14,10 +14,16 @@ public class StraightMotion {
 	 		 					     rm = DefaultPorts.getRightMotor();
 	private int startTacho, lastUpdatedTacho;
 	private boolean isMoving;
+	private float speed;
 	
 	public StraightMotion() {
+		this(lm.getMaxSpeed());
+	}
+	
+	public StraightMotion(float speed) {
 		startTacho = lastUpdatedTacho = 0;
 		isMoving = false;
+		this.speed = speed;
 	}
 	
 	public boolean isMoving() {
@@ -29,7 +35,6 @@ public class StraightMotion {
 			throw new IllegalArgumentException("Already moving");
 		isMoving = true;
 		startTacho = lastUpdatedTacho = lm.getTachoCount();
-		float speed = lm.getMaxSpeed();
 		
 		lm.synchronizeWith(new RegulatedMotor[]{rm});
 		lm.startSynchronization();
