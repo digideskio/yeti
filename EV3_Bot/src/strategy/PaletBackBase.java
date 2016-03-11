@@ -51,6 +51,9 @@ public class PaletBackBase implements Tactic {
 		if (Bot.getSensorsCache().getColor() == BasicColor.White) {
 			smotion.stop();
 			BasicMotion.openClaw(false);
+			BasicMotion.moveBy(-180 * 3);
+			BasicMotion.closeClaw(false);
+			BasicMotion.rotate(180);
 			return true;
 		}
 		if (stopped) {
