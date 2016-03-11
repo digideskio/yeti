@@ -3,24 +3,34 @@ package gps;
 import main.Bot;
 
 /** 
- * Gives all free nearest palets
+ * Gives all free nearest discs and changes disc's state if the disc is captured
  */
 
 public class PaletPosition {
 
-	private Palet[] palets;		//contains all discs 
+	private static Palet[] palets;		//contains all discs with their state : free or captured
 	private static int numberOfDiscs;
 	
-	int goToX;	
+	int goToX;			//coordinates of the nearest discs found by Yeti
 	int goToY;
 	
-	static int xCapturedDisc = -1;
+	static int xCapturedDisc = -1;		//coordinates of the captured disc
 	static int yCapturedDisc = -1;
 	
 	
 	PaletPosition(int numberOfDiscs) {
-		this.palets = new Palet[numberOfDiscs];
-		this.palets[0] = new Palet(1084, 2009);
+		int height = 1260;
+		int width = 1050;
+		PaletPosition.palets = new Palet[numberOfDiscs];
+		PaletPosition.palets[0] = new Palet(width*1,height*1);
+		PaletPosition.palets[1] = new Palet(width*1,height*2);
+		PaletPosition.palets[2] = new Palet(width*1,height*3);
+		PaletPosition.palets[3] = new Palet(width*2,height*1);
+		PaletPosition.palets[4] = new Palet(width*2,height*2);
+		PaletPosition.palets[5] = new Palet(width*2,height*3);
+		PaletPosition.palets[6] = new Palet(width*3,height*1);
+		PaletPosition.palets[7] = new Palet(width*3,height*2);
+		PaletPosition.palets[8] = new Palet(width*3,height*3);
 	}
 
 	public int getGoToX() {
@@ -39,10 +49,13 @@ public class PaletPosition {
 		return yCapturedDisc;
 	}
 
+	/**
+	 * Searches which disc is the nearest of yeti
+	 * @return true if yeti found a disc
+	 */
 	public boolean nearestPalet() {	
-		upDateCapturedDiscs();
-		double distMin = 1000000;		//mettre la plus grande distance + 1 ici 	
-		int ligne = -1, column = -1;		
+		double distMin = 1000000;	
+		int ligne = -1, column = -1;	
 		for (int i = 0; i < numberOfDiscs; i++) {
 				int compX = palets[i].getXdisc() - Bot.getGPS().getRawX();
 				int compY = palets[i].getYdisc() - Bot.getGPS().getRawY();
@@ -51,23 +64,34 @@ public class PaletPosition {
 					distMin = dist;
 					ligne = palets[i].getXdisc();
 					column = palets[i].getYdisc();
+					
+					this.goToX = ligne;
+					this.goToY = column;
+
+					return true;		
 				}	
 		}	
-		this.goToX = ligne;
-		this.goToY = column;
-
-		return true;	
+		return false;	
 	}
 	
-	public static void position() {
+	/**
+	 * Gets Yeti coordinates when the robot caught a disc
+	 * and changes the state of disc
+	 */
+	public static void discCaptured() {
 		xCapturedDisc = Bot.getGPS().getRawX();
 		yCapturedDisc = Bot.getGPS().getRawY();	
+		double radius, distX, distY;
+		for (int i = 0; i < numberOfDiscs; i++)  {
+			//distance X between the disc's coordinate and Yeti coordinates when it caught it
+			distX = palets[i].getXdisc() - xCapturedDisc;
+			//distance Y between the disc's coordinate and Yeti coordinates when it caught it
+			distY = palets[i].getYdisc() - yCapturedDisc;
+			//Tolerance zone
+			radius = Math.sqrt(distX*distX + distY*distY);
+			if ( radius <= 420 ) 
+				palets[i].setCaptured(true);
+		}
 	}
 	
-	public void upDateCapturedDiscs() {		// /!\ GERER LES MARGES D'ERREUR ICI !!!!!!! Egalites fausses
-		for (int i = 0; i < numberOfDiscs; i++) 
-			if ( palets[i].getXdisc() == xCapturedDisc && 
-					palets[i].getYdisc() == yCapturedDisc) 
-				palets[i].setCaptured(true);				
-	}	
 }

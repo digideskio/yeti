@@ -35,7 +35,7 @@ public class MainTactic implements Tactic {
 	@Override
 	public boolean perform() {
 		if(!paletCaptured){
-			//paletCaptured = pincerTactic.perform();	
+			paletCaptured = pincerTactic.perform();	
 			mainTactic.perform();
 		}
 		else {
