@@ -41,10 +41,17 @@ public class Bot {
 	public static PositionTracker getGPS() {
 		return gps;
 	}
+	
+	/**
+	 * Returns the global tactic planner
+	 */
+	public static Planner getPlanner() {
+		return planner;
+	}
 
 	public static void main(String[] args) {
 		cd = new ColorDetector();
-		gps = new PositionTracker(0, 0);
+		gps = new PositionTracker(2*1050, 4*1280);
 		button = new TouchSensor();
 		sonar = new SonarSensor();
 		cache = new SensorsCache(cd, button, sonar);

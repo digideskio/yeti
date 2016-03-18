@@ -28,12 +28,9 @@ public class PositionTracker {
 	 * in either the green or blue start zone.
 	 */
 	public PositionTracker(int x, int y) {
-		if (x<0 || x>3 || (y!=0 && y!=5))
-			throw new IllegalArgumentException("Invalid start coordinates");
-		
-		this.x = x;
-		this.y = y;
-		isGreen = (y==0);
+		this.rawx = x;
+		this.rawy = y;
+		isGreen = (rawy==0);
 		orientation = new Orientation(isGreen);
 		followedLine = BasicColor.None;
 	}

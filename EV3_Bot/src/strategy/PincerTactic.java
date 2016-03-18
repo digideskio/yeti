@@ -15,7 +15,7 @@ public class PincerTactic implements Tactic{
 	
 	@Override
 	public String getDisplayName() {
-		return "Nothing";
+		return "Pincer";
 	}
 	
 	@Override
@@ -39,11 +39,12 @@ public class PincerTactic implements Tactic{
 			return true;
 
 		if (Bot.getSensorsCache().isButtonPressed()) {
+			Bot.getPlanner().stop();
 			PaletPosition.discCaptured();
-			BasicMotion.closeClaw(false);
+			BasicMotion.closeClaw(true);
 			return true;
 		}
-		return false;		
+		return false;
 	}
 	
 	@Override

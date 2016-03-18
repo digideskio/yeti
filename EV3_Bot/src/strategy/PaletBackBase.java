@@ -11,12 +11,12 @@ public class PaletBackBase implements Tactic {
 	private StraightMotion smotion;
 	private AvoidFoe avoidfoe;
 	private GoBack goback;
-	private MoveToTactic gobase;
+	private MoveToTactic goCenter;
 	
 	PaletBackBase() {
 		stopped = false;
 		smotion = new StraightMotion();
-		gobase = new MoveToTactic(Bot.getGPS().getRawX()+(1050/2),Bot.getGPS().getRawY()+(1280/2));
+		goCenter = new MoveToTactic(Bot.getGPS().getRawX()-(1050/2), Bot.getGPS().getRawY()-(1280/2));
 	}
 
 	@Override
@@ -51,11 +51,13 @@ public class PaletBackBase implements Tactic {
 				goback = null;
 		}
 		
-		if(gobase != null){
-			if (gobase.perform())
-				gobase = null;
+		if(goCenter != null){
+			if (goCenter.perform())
+				goCenter = null;
 			return false;
 		}
+		return true;
+		/**
 		float angleDiff = Bot.getGPS().getOrientation().diffTowardsTarget();
 		if (angleDiff >= 2.)
 			BasicMotion.rotate((int)angleDiff, true);
@@ -65,9 +67,8 @@ public class PaletBackBase implements Tactic {
 		
 		if (Bot.getSensorsCache().getColor() == BasicColor.White) {
 			smotion.stop();
-			BasicMotion.openClaw(false);
+			BasicMotion.openClaw(true);
 			BasicMotion.moveBy(-180 * 3);
-			BasicMotion.closeClaw(false);
 			BasicMotion.rotate(180);
 			return true;
 		}
@@ -75,6 +76,7 @@ public class PaletBackBase implements Tactic {
 			return true;
 		}
 		return false;
+	*/
 	}
 
 	@Override
