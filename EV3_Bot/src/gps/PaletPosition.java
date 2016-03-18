@@ -18,7 +18,7 @@ public class PaletPosition {
 	static int yCapturedDisc = -1;
 	
 	
-	PaletPosition(int numberOfDiscs) {
+	public PaletPosition(int numberOfDiscs) {
 		int height = 1260;
 		int width = 1050;
 		PaletPosition.palets = new Palet[numberOfDiscs];
@@ -75,7 +75,7 @@ public class PaletPosition {
 	}
 	
 	/**
-	 * Gets Yeti coordinates when the robot caught a disc
+	 * Gets Yeti's coordinates when the robot caught a disc
 	 * and changes the state of disc
 	 */
 	public static void discCaptured() {
