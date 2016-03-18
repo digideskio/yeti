@@ -10,7 +10,7 @@ public class MainTactic implements Tactic {
 	
 	MainTactic() {
 		pincerTactic = new PincerTactic();
-		mainTactic = new MoveToTactic(3*1050, 3*1280);
+		mainTactic = new CatchAllDiscs(1050, 0);
 		goBackTactic = new PaletBackBase();
 		paletCaptured = false;
 	}
