@@ -2,13 +2,13 @@ package strategy;
 
 import gps.PaletPosition;
 
-public class GetAllDisks implements Tactic {
+public class CatchAllDiscs implements Tactic {
 	
 	MoveToTactic move;
 	PaletPosition disk;
 	GoBack back;
 	
-	public GetAllDisks(int xDepart, int yDepart, int numberOfDisks) {
+	public CatchAllDiscs(int xDepart, int yDepart, int numberOfDisks) {
 		this.move = new MoveToTactic(xDepart, yDepart);
 		this.disk = new PaletPosition(numberOfDisks);
 		this.back = new GoBack();
@@ -33,7 +33,9 @@ public class GetAllDisks implements Tactic {
 
 	@Override
 	public boolean perform() {
-		
+		if (PaletPosition.getNumberOfDiscs() != 0) {
+			
+		}
 		return false;
 	}
 

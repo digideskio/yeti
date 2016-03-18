@@ -11,17 +11,18 @@ public class PaletPosition {
 	private static Palet[] palets;		//contains all discs with their state : free or captured
 	private static int numberOfDiscs;
 	
-	int goToX;			//coordinates of the nearest discs found by Yeti
-	int goToY;
+	int goToX;							//coordinates of the nearest discs found by Yeti
+	int goToY;	
 	
 	static int xCapturedDisc = -1;		//coordinates of the captured disc
 	static int yCapturedDisc = -1;
 	
 	
 	public PaletPosition(int numberOfDiscs) {
-		int height = 1260;
-		int width = 1050;
+		int height = 1260;	//height of a square on the board we have to verify if all squares have the same size
+		int width = 1050;	//width of a square
 		PaletPosition.palets = new Palet[numberOfDiscs];
+		//
 		PaletPosition.palets[0] = new Palet(width*1,height*1);
 		PaletPosition.palets[1] = new Palet(width*1,height*2);
 		PaletPosition.palets[2] = new Palet(width*1,height*3);
@@ -57,9 +58,11 @@ public class PaletPosition {
 		double distMin = 1000000;	
 		int ligne = -1, column = -1;	
 		for (int i = 0; i < numberOfDiscs; i++) {
+			//calculates the shortest distance between Yeti and all discs with the absolute value
 				int compX = palets[i].getXdisc() - Bot.getGPS().getRawX();
 				int compY = palets[i].getYdisc() - Bot.getGPS().getRawY();
 				double dist = Math.sqrt(compX*compX + compY*compY);
+				//updates distMin
 				if (dist < distMin && palets[i].isCaptured() == false) {
 					distMin = dist;
 					ligne = palets[i].getXdisc();
@@ -89,9 +92,15 @@ public class PaletPosition {
 			distY = palets[i].getYdisc() - yCapturedDisc;
 			//Tolerance zone
 			radius = Math.sqrt(distX*distX + distY*distY);
-			if ( radius <= 420 ) 
+			if ( radius <= 420 ) {
 				palets[i].setCaptured(true);
+				break;
+			}
 		}
+	}
+
+	public static int getNumberOfDiscs() {
+		return numberOfDiscs;
 	}
 	
 }
