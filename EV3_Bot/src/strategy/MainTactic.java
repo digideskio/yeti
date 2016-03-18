@@ -10,9 +10,9 @@ public class MainTactic implements Tactic {
 	
 	MainTactic() {
 		pincerTactic = new PincerTactic();
-		mainTactic = new MoveToTactic(-1050, 1280);
+		mainTactic = new MoveToTactic(3*1050, 3*1280);
 		goBackTactic = new PaletBackBase();
-		paletCaptured=false;
+		paletCaptured = false;
 	}
 	
 	@Override
@@ -35,25 +35,24 @@ public class MainTactic implements Tactic {
 	@Override
 	public boolean perform() {
 		if(!paletCaptured){
-			paletCaptured = pincerTactic.perform();	
+			paletCaptured = pincerTactic.perform();
 			mainTactic.perform();
-		}
-		else {
+		} else {
 			paletCaptured = !goBackTactic.perform();
+			if (!paletCaptured)
+				mainTactic = new NullTactic();
 		}
 		return false;
 	}
 
 	@Override
 	public void abort() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-		
+		mainTactic.stop();
+		mainTactic.perform();
 	}
 
 }

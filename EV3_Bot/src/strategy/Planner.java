@@ -43,4 +43,11 @@ public class Planner {
 	public String getCurrentTacticName() {
 		return currentTactic.getDisplayName();
 	}
+	
+	/**
+	 * Stops the current tactic
+	 */
+	public void stop() {
+		currentTactic.stop();
+	}
 }
