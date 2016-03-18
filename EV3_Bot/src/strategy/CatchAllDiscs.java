@@ -11,13 +11,11 @@ public class CatchAllDiscs implements Tactic {
 	MoveToTactic move;
 	PaletPosition disc;
 	PaletBackBase back;
-	PincerTactic pincer;
 	StraightMotion sm;
 	
 	public CatchAllDiscs(int xDepart, int yDepart) {
 		this.disc = new PaletPosition();
 		this.back = new PaletBackBase();
-		this.pincer = new PincerTactic();
 	}
 
 	@Override
@@ -42,7 +40,10 @@ public class CatchAllDiscs implements Tactic {
 		int nbTour = PaletPosition.getNumberOfDiscs();
 		if (nbTour > 0 && disc.nearestPalet() && disc.isFreeDiscs()) {
 			this.move = new MoveToTactic(disc.getGoToX(),disc.getGoToY());
-			this.pincer.perform();
+			if (this.move != null )
+				move.perform();
+			if (move.perform() == true)
+				move = null;
 			if (nbTour == PaletPosition.getNumberOfDiscs()) {
 				//avoids discs which follow the first caught disc
 				BasicMotion.rotate(-90);
