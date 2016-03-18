@@ -97,6 +97,14 @@ public class PaletPosition {
 			}
 		}
 	}
+	
+	public boolean isFreeDiscs() {
+		for (int i = 0; i < numberOfDiscs; i++) {
+			if (palets[i].isCaptured() == false)
+				return true;
+		}
+		return false;
+	}
 
 	public static int getNumberOfDiscs() {
 		return numberOfDiscs;
