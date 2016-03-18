@@ -9,7 +9,7 @@ import main.Bot;
 public class PaletPosition {
 
 	private static Palet[] palets;		//contains all discs with their state : free or captured
-	private static int numberOfDiscs;
+	private static int numberOfDiscs = 9;
 	
 	int goToX;							//coordinates of the nearest discs found by Yeti
 	int goToY;	
@@ -18,11 +18,10 @@ public class PaletPosition {
 	static int yCapturedDisc = -1;
 	
 	
-	public PaletPosition(int numberOfDiscs) {
+	public PaletPosition() {
 		int height = 1260;	//height of a square on the board we have to verify if all squares have the same size
 		int width = 1050;	//width of a square
 		PaletPosition.palets = new Palet[numberOfDiscs];
-		//
 		PaletPosition.palets[0] = new Palet(width*1,height*1);
 		PaletPosition.palets[1] = new Palet(width*1,height*2);
 		PaletPosition.palets[2] = new Palet(width*1,height*3);
