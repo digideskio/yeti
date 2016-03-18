@@ -16,6 +16,7 @@ public class CatchAllDiscs implements Tactic {
 	public CatchAllDiscs(int xDepart, int yDepart) {
 		this.disc = new PaletPosition();
 		this.back = new PaletBackBase();
+		this.sm = new StraightMotion();
 	}
 
 	@Override
@@ -46,12 +47,11 @@ public class CatchAllDiscs implements Tactic {
 				move = null;
 			if (nbTour == PaletPosition.getNumberOfDiscs()) {
 				//avoids discs which follow the first caught disc
-				BasicMotion.rotate(-90);
-				BasicMotion.moveBy(180 * 4);
 				BasicMotion.rotate(90);
-				if (!sm.isMoving()) {
+				BasicMotion.moveBy(180 * 4);
+				BasicMotion.rotate(-90);
+				if (!sm.isMoving())
 					sm.start(true);
-				}
 				if (Bot.getSensorsCache().getColor() == BasicColor.White) {
 					sm.stop();
 					BasicMotion.openClaw(false);
