@@ -13,7 +13,7 @@ public class GoBack implements Tactic {
 	@Override
 	public String getDisplayName() {
 		// TODO Auto-generated method stub
-		return null;
+		return "GoBack";
 	}
 
 	@Override
