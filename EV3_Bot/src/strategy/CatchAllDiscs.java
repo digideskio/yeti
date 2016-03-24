@@ -6,6 +6,13 @@ import motor.BasicMotion;
 import motor.StraightMotion;
 import sensors.BasicColor;
 
+/**
+ * strategy which permits to catch all discs if Yeti is alone
+ * on board and if the discs are on the junctions of color line
+ * @author decerle
+ *
+ */
+
 public class CatchAllDiscs implements Tactic {
 	
 	MoveToTactic move;
@@ -38,6 +45,8 @@ public class CatchAllDiscs implements Tactic {
 
 	@Override
 	public boolean perform() {
+		//this variable permits to consider the first disc to catch 
+		//because the first moving is different that others
 		int nbTour = PaletPosition.getNumberOfDiscs();
 		if (nbTour > 0 && disc.nearestPalet() && disc.isFreeDiscs()) {
 			this.move = new MoveToTactic(disc.getGoToX(),disc.getGoToY());
@@ -45,6 +54,7 @@ public class CatchAllDiscs implements Tactic {
 				move.perform();
 			if (move.perform() == true)
 				move = null;
+			//just for the first disc
 			if (nbTour == PaletPosition.getNumberOfDiscs()) {
 				//avoids discs which follow the first caught disc
 				BasicMotion.rotate(90);
