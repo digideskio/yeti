@@ -11,13 +11,15 @@ public class MainTactic implements Tactic {
 	MainTactic() {
 		pincerTactic = new PincerTactic();
 		mainTactic = new CatchAllDiscs();
-		goBackTactic = new PaletBackBase();
 		paletCaptured = false;
 	}
 	
 	@Override
 	public String getDisplayName() {
-		return mainTactic.getDisplayName();
+		if (paletCaptured && goBackTactic != null)
+			return goBackTactic.getDisplayName();
+		else
+			return mainTactic.getDisplayName();
 	}
 
 	@Override
@@ -40,9 +42,13 @@ public class MainTactic implements Tactic {
 			paletCaptured = pincerTactic.perform();
 			
 		} else {
+			if (goBackTactic == null)
+				goBackTactic = new PaletBackBase();
 			paletCaptured = !goBackTactic.perform();
-			if (!paletCaptured)
+			if (!paletCaptured) {
 				mainTactic = new NullTactic();
+				goBackTactic = null;
+			}
 		}
 		return false;
 	}

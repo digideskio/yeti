@@ -17,13 +17,18 @@ public class CatchAllDiscs implements Tactic {
 	
 	MoveToTactic move;
 	PaletPosition disc;
+	String name;
+	boolean abort;
 	
 	public CatchAllDiscs() {
 		this.disc = new PaletPosition();
+		abort = false;
 	}
 
 	@Override
 	public String getDisplayName() {
+		if (name != null)
+			return name;
 		return "CatchAllDiscs";
 	}
 
@@ -41,19 +46,29 @@ public class CatchAllDiscs implements Tactic {
 
 	@Override
 	public boolean perform() {
+		if (abort == true) {
+			if (move != null) {
+				move.abort();
+				move.perform();
+			}
+			return true;
+		}
+		
 		//this variable permits to consider the first disc to catch 
 		//because the first moving is different that others
 		int nbTour = PaletPosition.getNumberOfDiscs();
 		if (nbTour > 0 && disc.isFreeDiscs()) {		
 			if (this.move == null ) {
 				this.disc.nearestPalet();
-			
 				this.move = new MoveToTactic(disc.getGoToX(),disc.getGoToY());
+				name = move.getDisplayName();
 			}
 			if (move.perform() == true)
 				move = null;
 			else
 				return false;
+			
+			name = null;
 			/*
 			//just for the first disc
 			if (nbTour == PaletPosition.numberOfFreeDiscs()) {
@@ -72,15 +87,12 @@ public class CatchAllDiscs implements Tactic {
 
 	@Override
 	public void abort() {
-		// TODO Auto-generated method stub
-		
+		abort = true;
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-		
-		
+		abort = true;
 	}
 
 }
