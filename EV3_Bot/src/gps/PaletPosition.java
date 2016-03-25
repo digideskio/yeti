@@ -19,7 +19,7 @@ public class PaletPosition {
 	
 	
 	public PaletPosition() {
-		int height = 1260;	//height of a square on the board we have to verify if all squares have the same size
+		int height = 1280;	//height of a square on the board we have to verify if all squares have the same size
 		int width = 1050;	//width of a square
 		PaletPosition.palets = new Palet[numberOfDiscs];
 		PaletPosition.palets[0] = new Palet(width*1,height*1);
@@ -104,6 +104,15 @@ public class PaletPosition {
 				return true;
 		}
 		return false;
+	}
+	
+	public static int numberOfFreeDiscs() {
+		int cmp = 0;
+		for (int i = 0; i < numberOfDiscs; i++) {
+			if (palets[i].isCaptured() == false)
+				cmp++;
+		}
+		return cmp;
 	}
 
 	public static int getNumberOfDiscs() {

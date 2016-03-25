@@ -25,10 +25,7 @@ public class MoveToTactic implements Tactic {
 		int xdiff = targetx - startx, ydiff = targety - starty;
 		distance = (int) Math.sqrt(xdiff*xdiff + ydiff*ydiff);
 		
-		if (distance <= 500)
-			sm = new StraightMotion(360);
-		else
-			sm = new StraightMotion();
+		sm = new StraightMotion();
 	}
 
 	@Override

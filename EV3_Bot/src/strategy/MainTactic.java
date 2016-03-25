@@ -10,7 +10,7 @@ public class MainTactic implements Tactic {
 	
 	MainTactic() {
 		pincerTactic = new PincerTactic();
-		mainTactic = new CatchAllDiscs(1050, 0);
+		mainTactic = new CatchAllDiscs();
 		goBackTactic = new PaletBackBase();
 		paletCaptured = false;
 	}
@@ -34,9 +34,11 @@ public class MainTactic implements Tactic {
 
 	@Override
 	public boolean perform() {
+		
 		if(!paletCaptured){
-			paletCaptured = pincerTactic.perform();
 			mainTactic.perform();
+			paletCaptured = pincerTactic.perform();
+			
 		} else {
 			paletCaptured = !goBackTactic.perform();
 			if (!paletCaptured)
