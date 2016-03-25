@@ -19,6 +19,9 @@ public class CatchAllDiscs implements Tactic {
 	PaletPosition disc;
 	String name;
 	boolean abort;
+	private AvoidFoe avoidfoe;
+	private GoBack goback;
+
 	
 	public CatchAllDiscs() {
 		this.disc = new PaletPosition();
@@ -31,17 +34,16 @@ public class CatchAllDiscs implements Tactic {
 			return name;
 		return "CatchAllDiscs";
 	}
-
 	@Override
 	public boolean handleObstacle() {
-		// TODO Auto-generated method stub
-		return false;
+		avoidfoe = new AvoidFoe();
+		return true;
 	}
 
 	@Override
 	public boolean handleContact() {
-		// TODO Auto-generated method stub
-		return false;
+		goback = new GoBack();
+		return true;
 	}
 
 	@Override
