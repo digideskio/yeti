@@ -16,7 +16,7 @@ public class PaletBackBase implements Tactic {
 	PaletBackBase() {
 		stopped = false;
 		smotion = new StraightMotion();
-		goCenter = new MoveToTactic(Bot.getGPS().getRawX()-(1050/2), Bot.getGPS().getRawY()-(1280/2));
+		goCenter = new MoveToTactic(Bot.getGPS().getRawX()+(1050/2), Bot.getGPS().getRawY()+(1280/2));
 	}
 
 	@Override
@@ -56,8 +56,7 @@ public class PaletBackBase implements Tactic {
 				goCenter = null;
 			return false;
 		}
-		return true;
-		/**
+		
 		float angleDiff = Bot.getGPS().getOrientation().diffTowardsTarget();
 		if (angleDiff >= 2.)
 			BasicMotion.rotate((int)angleDiff, true);
@@ -76,7 +75,7 @@ public class PaletBackBase implements Tactic {
 			return true;
 		}
 		return false;
-	*/
+	
 	}
 
 	@Override
