@@ -53,7 +53,7 @@ public class PaletPosition {
 	 * Searches which disc is the nearest of yeti
 	 * @return true if yeti found a disc
 	 */
-	public boolean nearestPalet() {	
+	public void nearestPalet() {	
 		double distMin = 1000000;	
 		int ligne = -1, column = -1;	
 		for (int i = 0; i < numberOfDiscs; i++) {
@@ -69,11 +69,8 @@ public class PaletPosition {
 					
 					this.goToX = ligne;
 					this.goToY = column;
-
-					return true;		
 				}	
-		}	
-		return false;	
+		}
 	}
 	
 	/**
