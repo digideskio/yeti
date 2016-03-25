@@ -58,10 +58,10 @@ public class PaletBackBase implements Tactic {
 		}
 		
 		float angleDiff = Bot.getGPS().getOrientation().diffTowardsTarget();
-		if (angleDiff >= 2.)
+		if (angleDiff >= 2.) 
 			BasicMotion.rotate((int)angleDiff, true);
-		
-		if (!smotion.isMoving())
+			
+			if (!smotion.isMoving())
 			smotion.start(true);
 		
 		if (Bot.getSensorsCache().getColor() == BasicColor.White) {
@@ -75,7 +75,10 @@ public class PaletBackBase implements Tactic {
 			return true;
 		}
 		return false;
+<<<<<<< HEAD
 	
+=======
+>>>>>>> b955e24e6f40e8bc232fbd280a73f26fa4757286
 	}
 
 	@Override

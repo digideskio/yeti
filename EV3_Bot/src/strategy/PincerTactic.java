@@ -10,7 +10,7 @@ public class PincerTactic implements Tactic{
 	
 	PincerTactic() {
 		stopped = false;
-		Pinceropened=false;
+		Pinceropened = true;
 	}
 	
 	@Override

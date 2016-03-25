@@ -23,8 +23,8 @@ public class BasicMotion {
 	public static void rotate(int deg, boolean waitForCompletion) {
 		lm.synchronizeWith(new NXTRegulatedMotor[]{rm});
 		lm.startSynchronization();
-		lm.setSpeed(360);
-		rm.setSpeed(360);
+		lm.setSpeed(180);
+		rm.setSpeed(180);
 		lm.rotate(-deg*2, true);
 		rm.rotate(deg*2, true);
 		lm.endSynchronization();
