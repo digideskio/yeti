@@ -16,7 +16,7 @@ public class PaletBackBase implements Tactic {
 	PaletBackBase() {
 		stopped = false;
 		smotion = new StraightMotion();
-		goCenter = new MoveToTactic(Bot.getGPS().getRawX()+(1050/2), Bot.getGPS().getRawY()+(1280/2));
+		goCenter = new MoveToTactic(Bot.getGPS().getRawX()-(1050/2), Bot.getGPS().getRawY()-(1280/2));
 	}
 
 	@Override
@@ -75,10 +75,7 @@ public class PaletBackBase implements Tactic {
 			return true;
 		}
 		return false;
-<<<<<<< HEAD
-	
-=======
->>>>>>> b955e24e6f40e8bc232fbd280a73f26fa4757286
+
 	}
 
 	@Override
