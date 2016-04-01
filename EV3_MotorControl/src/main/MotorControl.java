@@ -3,6 +3,7 @@ import gps.PositionTracker;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.Motor;
+import lejos.hardware.motor.NXTRegulatedMotor;
 import lejos.utility.Delay;
 import motor.BasicMotion;
 import motor.StraightMotion;
@@ -30,29 +31,13 @@ public class MotorControl {
 		ColorDetector cd = new ColorDetector();
 		gps = new PositionTracker(0, 0);
 		println("Orientation test", 1);
-
-		/**
-		BasicMotion.rotate(90);
-		Delay.msDelay(1000);
-		BasicMotion.rotate(-180);
-		Delay.msDelay(1000);
-		BasicMotion.rotate(360);
-		Delay.msDelay(1000);
-		BasicMotion.rotate(-270);
-		
-		BasicMotion.moveBy(360);
-		Delay.msDelay(1000);
-		BasicMotion.moveBy(-720);
-		Delay.msDelay(1000);
-		BasicMotion.moveBy(360);
-		*/
 		
 		StraightMotion sm = new StraightMotion();
+		NXTRegulatedMotor lm = DefaultPorts.getLeftMotor(),
+		 		 rm = DefaultPorts.getRightMotor();
+		//lm.rotate((int)(360*4.47));
 		//sm.start(true);
-		BasicMotion.rotate(-45);
-		BasicMotion.moveBy(1600);
-		BasicMotion.rotate(45);
-		BasicMotion.moveBy(1600);
+		BasicMotion.rotate(360);
 		
 		while (Button.ESCAPE.isUp()) {
 			if (Button.ENTER.isDown())

@@ -21,12 +21,13 @@ public class BasicMotion {
 		rotate(deg, true);
 	}
 	public static void rotate(int deg, boolean waitForCompletion) {
+		double deg2tacho = 2.235;
 		lm.synchronizeWith(new NXTRegulatedMotor[]{rm});
 		lm.startSynchronization();
 		lm.setSpeed(360);
 		rm.setSpeed(360);
-		lm.rotate(deg*2, true);
-		rm.rotate(-deg*2, true);
+		lm.rotate((int)(deg*deg2tacho), true);
+		rm.rotate((int)(-deg*deg2tacho), true);
 		lm.endSynchronization();
 		if (waitForCompletion)
 			rm.waitComplete();
