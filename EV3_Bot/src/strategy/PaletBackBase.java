@@ -64,11 +64,11 @@ public class PaletBackBase implements Tactic {
 		
 		float angleDiff = Bot.getGPS().getOrientation().diffTowardsTarget();
 		
-		if (angleDiff >= 2.) 
+		if (angleDiff >= 1.) 
 			BasicMotion.rotate((int)angleDiff, true);
 			
 			if (!smotion.isMoving())
-			smotion.start(true);
+				smotion.start(true);
 		
 		if (Bot.getSensorsCache().getColor() == BasicColor.White) {
 			smotion.stop();

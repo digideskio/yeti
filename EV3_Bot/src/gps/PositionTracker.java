@@ -30,7 +30,7 @@ public class PositionTracker {
 	public PositionTracker(int x, int y) {
 		this.rawx = x;
 		this.rawy = y;
-		isGreen = (rawy==0);
+		isGreen = (rawy>=1280*2);
 		orientation = new Orientation(isGreen);
 		followedLine = BasicColor.None;
 	}

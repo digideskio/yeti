@@ -46,7 +46,7 @@ public class MainTactic implements Tactic {
 				goBackTactic = new PaletBackBase();
 			paletCaptured = !goBackTactic.perform();
 			if (!paletCaptured) {
-				mainTactic = new NullTactic();
+				mainTactic = new CatchAllDiscs();
 				goBackTactic = null;
 			}
 		}

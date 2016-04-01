@@ -59,7 +59,7 @@ public class MoveToTactic implements Tactic {
 		if (!rotated) {
 			int xdiff = targetx - gps.getRawX(), ydiff = targety - gps.getRawY();
 			float rotDiff = gps.getOrientation().diff(xdiff, ydiff);
-			if (Math.abs(rotDiff) >= 2.) {
+			if (Math.abs(rotDiff) >= 1.) {
 				if (sm.isMoving())
 					sm.stop();
 				BasicMotion.rotate((int)rotDiff, true);

@@ -21,16 +21,18 @@ public class PaletPosition {
 	public PaletPosition() {
 		int height = 1280;	//height of a square on the board we have to verify if all squares have the same size
 		int width = 1050;	//width of a square
-		PaletPosition.palets = new Palet[numberOfDiscs];
-		PaletPosition.palets[0] = new Palet(width*1,height*1);
-		PaletPosition.palets[1] = new Palet(width*1,height*2);
-		PaletPosition.palets[2] = new Palet(width*1,height*3);
-		PaletPosition.palets[3] = new Palet(width*2,height*1);
-		PaletPosition.palets[4] = new Palet(width*2,height*2);
-		PaletPosition.palets[5] = new Palet(width*2,height*3);
-		PaletPosition.palets[6] = new Palet(width*3,height*1);
-		PaletPosition.palets[7] = new Palet(width*3,height*2);
-		PaletPosition.palets[8] = new Palet(width*3,height*3);
+		if (palets == null) {
+			PaletPosition.palets = new Palet[numberOfDiscs];
+			PaletPosition.palets[0] = new Palet(width*1,height*1);
+			PaletPosition.palets[1] = new Palet(width*1,height*2);
+			PaletPosition.palets[2] = new Palet(width*1,height*3);
+			PaletPosition.palets[3] = new Palet(width*2,height*1);
+			PaletPosition.palets[4] = new Palet(width*2,height*2);
+			PaletPosition.palets[5] = new Palet(width*2,height*3);
+			PaletPosition.palets[6] = new Palet(width*3,height*1);
+			PaletPosition.palets[7] = new Palet(width*3,height*2);
+			PaletPosition.palets[8] = new Palet(width*3,height*3);
+		}
 	}
 
 	public int getGoToX() {

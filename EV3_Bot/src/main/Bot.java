@@ -51,13 +51,14 @@ public class Bot {
 
 	public static void main(String[] args) {
 		cd = new ColorDetector();
-		gps = new PositionTracker(2*1050, 4*1280);
+		gps = new PositionTracker(2*1050, 0*1280);
 		button = new TouchSensor();
 		sonar = new SonarSensor();
 		cache = new SensorsCache(cd, button, sonar);
 		planner = new Planner();
 
 		println("Yeti Bot", 0);
+		BasicMotion.openClaw(true);
 
 		while (Button.ESCAPE.isUp()) {
 			processEvents();
