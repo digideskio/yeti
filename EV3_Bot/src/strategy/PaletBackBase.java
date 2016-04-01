@@ -12,11 +12,16 @@ public class PaletBackBase implements Tactic {
 	private AvoidFoe avoidfoe;
 	private GoBack goback;
 	private MoveToTactic goCenter;
+		
 	
 	PaletBackBase() {
 		stopped = false;
 		smotion = new StraightMotion();
-		goCenter = new MoveToTactic(Bot.getGPS().getRawX()-(1050/2), Bot.getGPS().getRawY()-(1280/2));
+		if(Bot.getGPS().isGreen())
+			goCenter = new MoveToTactic(Bot.getGPS().getRawX()-(1050/2), Bot.getGPS().getRawY()-(1280/2));
+		else
+			goCenter = new MoveToTactic(Bot.getGPS().getRawX()-(1050/2), Bot.getGPS().getRawY()+(1280/2));
+	
 	}
 
 	@Override
@@ -58,6 +63,7 @@ public class PaletBackBase implements Tactic {
 		}
 		
 		float angleDiff = Bot.getGPS().getOrientation().diffTowardsTarget();
+		
 		if (angleDiff >= 2.) 
 			BasicMotion.rotate((int)angleDiff, true);
 			

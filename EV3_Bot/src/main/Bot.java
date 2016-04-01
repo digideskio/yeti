@@ -58,7 +58,6 @@ public class Bot {
 		planner = new Planner();
 
 		println("Yeti Bot", 0);
-		BasicMotion.openClaw(true);
 
 		while (Button.ESCAPE.isUp()) {
 			processEvents();

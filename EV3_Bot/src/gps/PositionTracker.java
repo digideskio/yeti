@@ -52,6 +52,14 @@ public class PositionTracker {
 		return rawy;
 	}
 	
+	public boolean isGreen() {
+		return isGreen;
+	}
+
+	public void setGreen(boolean isGreen) {
+		this.isGreen = isGreen;
+	}
+
 	/**
 	 * Call when the robot moved by distance units in the current direction  
 	 */
