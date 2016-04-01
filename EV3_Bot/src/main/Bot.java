@@ -2,6 +2,7 @@ package main;
 import sensors.ColorDetector;
 import config.DefaultPorts;
 import motor.BasicMotion;
+import gps.DeparturePosition;
 import gps.PositionTracker;
 import sensors.SensorsCache;
 import sensors.SonarSensor;
@@ -21,7 +22,7 @@ public class Bot {
 	private static SensorsCache cache;
 	private static int FPS = 0;
 
-	private static void println(String text, int y) {
+	public static void println(String text, int y) {
 		String padding = "                    ";
 		LCD.drawString(text + padding, 0, y);
 	}
@@ -51,13 +52,14 @@ public class Bot {
 
 	public static void main(String[] args) {
 		cd = new ColorDetector();
-		gps = new PositionTracker(2*1050, 0*1280);
 		button = new TouchSensor();
 		sonar = new SonarSensor();
 		cache = new SensorsCache(cd, button, sonar);
 		planner = new Planner();
 
 		println("Yeti Bot", 0);
+		DeparturePosition.choosePosition();
+		gps = new PositionTracker(DeparturePosition.getxDeparture(), DeparturePosition.getyDeparture());
 		BasicMotion.openClaw(true);
 
 		while (Button.ESCAPE.isUp()) {

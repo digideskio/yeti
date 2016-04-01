@@ -2,36 +2,33 @@ package gps;
 
 import main.Bot;
 
-/** 
+/**
  * Gives all free nearest discs and changes disc's state if the disc is captured
  */
 
 public class PaletPosition {
 
-	private static Palet[] palets;		//contains all discs with their state : free or captured
+	private static Palet[] palets; // contains all discs with their state : free
+									// or captured
 	private static int numberOfDiscs = 9;
-	
-	int goToX;							//coordinates of the nearest discs found by Yeti
-	int goToY;	
-	
-	static int xCapturedDisc = -1;		//coordinates of the captured disc
+	int goToX; // coordinates of the nearest discs found by Yeti
+	int goToY;
+	static int xCapturedDisc = -1; // coordinates of the captured disc
 	static int yCapturedDisc = -1;
-	
-	
+
 	public PaletPosition() {
-		int height = 1280;	//height of a square on the board we have to verify if all squares have the same size
-		int width = 1050;	//width of a square
 		if (palets == null) {
-			PaletPosition.palets = new Palet[numberOfDiscs];
-			PaletPosition.palets[0] = new Palet(width*1,height*1);
-			PaletPosition.palets[1] = new Palet(width*1,height*2);
-			PaletPosition.palets[2] = new Palet(width*1,height*3);
-			PaletPosition.palets[3] = new Palet(width*2,height*1);
-			PaletPosition.palets[4] = new Palet(width*2,height*2);
-			PaletPosition.palets[5] = new Palet(width*2,height*3);
-			PaletPosition.palets[6] = new Palet(width*3,height*1);
-			PaletPosition.palets[7] = new Palet(width*3,height*2);
-			PaletPosition.palets[8] = new Palet(width*3,height*3);
+			palets = new Palet[numberOfDiscs];
+			palets[0] = new Palet(1053, 1240); // Intersection(Horizontal/Vertical)
+												// : Blue/Red     conversion 1cm ~ 21 robot units
+			palets[1] = new Palet(1053 + 1049, 1240); // Blue/Black
+			palets[2] = new Palet(1053 + 1049 + 1041, 1240); // Blue/Yellow
+			palets[3] = new Palet(1053, 1240 + 1248); // Black/Red
+			palets[4] = new Palet(1053 + 1049, 1240 + 1248); // Black/Blue
+			palets[5] = new Palet(1053 + 1049 + 1041, 1240 + 1248); // Black/Yellow
+			palets[6] = new Palet(1053, 1240 + 1248 + 1233); // Green/Red
+			palets[7] = new Palet(1053 + 1049, 1240 + 1248 + 1233); // Green/Black
+			palets[8] = new Palet(1053 + 1049 + 1041, 1240 + 1248 + 1233); // Green/Yellow
 		}
 	}
 
@@ -42,7 +39,7 @@ public class PaletPosition {
 	public int getGoToY() {
 		return goToY;
 	}
-	
+
 	public int getxPalet() {
 		return xCapturedDisc;
 	}
@@ -53,50 +50,52 @@ public class PaletPosition {
 
 	/**
 	 * Searches which disc is the nearest of yeti
+	 * 
 	 * @return true if yeti found a disc
 	 */
-	public void nearestPalet() {	
-		double distMin = 1000000;	
-		int ligne = -1, column = -1;	
+	public void nearestPalet() {
+		double distMin = 1000000;
 		for (int i = 0; i < numberOfDiscs; i++) {
-			//calculates the shortest distance between Yeti and all discs with the absolute value
+			// calculates the shortest distance between Yeti and all discs with
+			// the absolute value
+			if (palets[i].isCaptured() == false) {
 				int compX = palets[i].getXdisc() - Bot.getGPS().getRawX();
 				int compY = palets[i].getYdisc() - Bot.getGPS().getRawY();
-				double dist = Math.sqrt(compX*compX + compY*compY);
-				//updates distMin
-				if (dist < distMin && palets[i].isCaptured() == false) {
+				double dist = Math.sqrt(compX * compX + compY * compY);
+				// updates distMin
+				if (dist < distMin) {
 					distMin = dist;
-					ligne = palets[i].getXdisc();
-					column = palets[i].getYdisc();
-					
-					this.goToX = ligne;
-					this.goToY = column;
-				}	
+					goToX = palets[i].getXdisc();
+					goToY = palets[i].getYdisc();
+				}
+			}
 		}
 	}
-	
+
 	/**
-	 * Gets Yeti's coordinates when the robot caught a disc
-	 * and changes the state of disc
+	 * Gets Yeti's coordinates when the robot caught a disc and changes the
+	 * state of disc
 	 */
 	public static void discCaptured() {
 		xCapturedDisc = Bot.getGPS().getRawX();
-		yCapturedDisc = Bot.getGPS().getRawY();	
+		yCapturedDisc = Bot.getGPS().getRawY();
 		double radius, distX, distY;
-		for (int i = 0; i < numberOfDiscs; i++)  {
-			//distance X between the disc's coordinate and Yeti coordinates when it caught it
+		for (int i = 0; i < numberOfDiscs; i++) {
+			// distance X between the disc's coordinate and Yeti coordinates
+			// when it caught it
 			distX = palets[i].getXdisc() - xCapturedDisc;
-			//distance Y between the disc's coordinate and Yeti coordinates when it caught it
+			// distance Y between the disc's coordinate and Yeti coordinates
+			// when it caught it
 			distY = palets[i].getYdisc() - yCapturedDisc;
-			//Tolerance zone
-			radius = Math.sqrt(distX*distX + distY*distY);
-			if ( radius <= 420 ) {
+			// Tolerance zone
+			radius = Math.sqrt(distX * distX + distY * distY);
+			if (radius <= 420) {
 				palets[i].setCaptured(true);
 				break;
 			}
 		}
 	}
-	
+
 	public boolean isFreeDiscs() {
 		for (int i = 0; i < numberOfDiscs; i++) {
 			if (palets[i].isCaptured() == false)
@@ -104,18 +103,5 @@ public class PaletPosition {
 		}
 		return false;
 	}
-	
-	public static int numberOfFreeDiscs() {
-		int cmp = 0;
-		for (int i = 0; i < numberOfDiscs; i++) {
-			if (palets[i].isCaptured() == false)
-				cmp++;
-		}
-		return cmp;
-	}
 
-	public static int getNumberOfDiscs() {
-		return numberOfDiscs;
-	}
-	
 }

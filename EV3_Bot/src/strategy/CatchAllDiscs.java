@@ -3,11 +3,6 @@ package strategy;
 import java.util.Date;
 
 import gps.PaletPosition;
-import lejos.utility.Stopwatch;
-import main.Bot;
-import motor.BasicMotion;
-import motor.StraightMotion;
-import sensors.BasicColor;
 
 
 /**
@@ -71,17 +66,12 @@ public class CatchAllDiscs implements Tactic {
 			if (res)
 				goback = null;
 		}
-		if (first != null && new Date().getTime() - first.getTime() > 5000) {
+		if (first != null && new Date().getTime() - first.getTime() > 500) {
 			PaletPosition.discCaptured();
 			first = null;
 			return true;
-		}
-
-		
-		//this variable permits to consider the first disc to catch 
-		//because the first moving is different that others
-		int nbTour = PaletPosition.getNumberOfDiscs();
-		if (nbTour > 0 && disc.isFreeDiscs()) {		
+		}	
+		if (disc.isFreeDiscs()) {		
 			if (this.move == null ) {
 				this.disc.nearestPalet();
 				this.move = new MoveToTactic(disc.getGoToX(),disc.getGoToY());
@@ -90,24 +80,14 @@ public class CatchAllDiscs implements Tactic {
 			if (move.perform() == true) {
 				first = new Date();
 				move = null;
-			} else
-				return false;
-			
-			name = null;
-			/*
-			//just for the first disc
-			if (nbTour == PaletPosition.numberOfFreeDiscs()) {
-				//avoids discs which follow the first caught disc
-				BasicMotion.rotate(90);
-				BasicMotion.moveBy(180 * 4);
-				BasicMotion.rotate(-90);
+			} else {
+				return false;	
 			}
-			*/
+			name = null;
 			return true;
 		} else {
 			return true;
-		}
-		
+		}	
 	}
 
 	@Override
