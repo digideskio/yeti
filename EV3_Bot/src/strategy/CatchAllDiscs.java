@@ -1,10 +1,14 @@
 package strategy;
 
+import java.util.Date;
+
 import gps.PaletPosition;
+import lejos.utility.Stopwatch;
 import main.Bot;
 import motor.BasicMotion;
 import motor.StraightMotion;
 import sensors.BasicColor;
+
 
 /**
  * strategy which permits to catch all discs if Yeti is alone
@@ -21,11 +25,13 @@ public class CatchAllDiscs implements Tactic {
 	boolean abort;
 	private AvoidFoe avoidfoe;
 	private GoBack goback;
+	private Date first;
 
 	
 	public CatchAllDiscs() {
 		this.disc = new PaletPosition();
 		abort = false;
+		first = null;
 	}
 
 	@Override
@@ -56,6 +62,13 @@ public class CatchAllDiscs implements Tactic {
 			return true;
 		}
 		
+		if (first != null && new Date().getTime() - first.getTime() > 500) {
+			PaletPosition.discCaptured();
+			first = null;
+			return true;
+		}
+
+		
 		//this variable permits to consider the first disc to catch 
 		//because the first moving is different that others
 		int nbTour = PaletPosition.getNumberOfDiscs();
@@ -65,9 +78,10 @@ public class CatchAllDiscs implements Tactic {
 				this.move = new MoveToTactic(disc.getGoToX(),disc.getGoToY());
 				name = move.getDisplayName();
 			}
-			if (move.perform() == true)
+			if (move.perform() == true) {
+				first = new Date();
 				move = null;
-			else
+			} else
 				return false;
 			
 			name = null;
