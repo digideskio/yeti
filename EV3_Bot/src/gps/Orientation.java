@@ -21,7 +21,7 @@ public class Orientation {
 	 */
 	public Orientation(boolean isGreen) {
 		this.isGreen = isGreen;
-		worldYaw = isGreen ? 90 : 270;
+		worldYaw = isGreen ? 270 : 90;
 	}
 	
 	public float getAngle() {
@@ -30,9 +30,9 @@ public class Orientation {
 	
 	public float diffTowardsTarget() {
 		if (isGreen)
-			return diff(0, 1);
-		else
 			return diff(0, -1);
+		else
+			return diff(0, 1);
 	}
 	
 	/**
