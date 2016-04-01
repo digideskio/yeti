@@ -61,8 +61,17 @@ public class CatchAllDiscs implements Tactic {
 			}
 			return true;
 		}
-		
-		if (first != null && new Date().getTime() - first.getTime() > 500) {
+		if (avoidfoe != null) {
+			boolean result = avoidfoe.perform();
+			if (result)
+				avoidfoe = null;
+		}
+		if (goback != null) {
+			boolean res = goback.perform();
+			if (res)
+				goback = null;
+		}
+		if (first != null && new Date().getTime() - first.getTime() > 5000) {
 			PaletPosition.discCaptured();
 			first = null;
 			return true;
