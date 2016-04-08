@@ -86,7 +86,7 @@ public class BasicMotion {
 	}
 	public static void openClaw(boolean waitForCompletion) {
 		claw.setSpeed(claw.getMaxSpeed());
-		claw.rotate(1500, !waitForCompletion);
+		claw.rotate(1300, !waitForCompletion);
 	}
 	
 	/** Close the front claw */
@@ -95,7 +95,7 @@ public class BasicMotion {
 	}
 	public static void closeClaw(boolean waitForCompletion) {
 		claw.setSpeed(claw.getMaxSpeed());
-		claw.rotate(-1500, !waitForCompletion);
+		claw.rotate(-1300, !waitForCompletion);
 	}
 	
 	/**

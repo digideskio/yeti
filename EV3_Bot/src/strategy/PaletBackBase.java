@@ -63,8 +63,7 @@ public class PaletBackBase implements Tactic {
 		}
 		
 		float angleDiff = Bot.getGPS().getOrientation().diffTowardsTarget();
-		
-		if (angleDiff >= 1.) 
+		if (Math.abs(angleDiff) >= 1.) 
 			BasicMotion.rotate((int)angleDiff, true);
 			
 			if (!smotion.isMoving())

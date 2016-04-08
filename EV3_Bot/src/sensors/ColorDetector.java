@@ -115,7 +115,7 @@ public class ColorDetector implements Closeable {
 			return BasicColor.None;
 		else if (V <= 15)
 			return BasicColor.Black;
-		else if (S <= 40 && V >= 30)
+		else if (S <= 75 && V >= 75)
 			return BasicColor.White;
 		else if (S > 40) {
 			if ((H <= 30 || H >= 300) && S >= 60)
