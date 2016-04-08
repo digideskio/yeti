@@ -1,6 +1,7 @@
 package gps;
 
 import lejos.hardware.Button;
+import lejos.hardware.lcd.LCD;
 import lejos.utility.TextMenu;
 import main.Bot;
 
@@ -30,20 +31,30 @@ public class DeparturePosition {
 	}
 
 	public static void choosePosition() {
+		Bot.println(">Green/Red",1);	
+		Bot.println(" Green/Black",2);
+		Bot.println(" Green/Yellow",3);
+		Bot.println(" Blue/Red",4);
+		Bot.println(" Blue/Black",5);
+		Bot.println(" Blue/Yellow",6);
+		
 		while (Button.ENTER.isUp()) {
-			Bot.println(">",curseur);
-			Bot.println("Green/Red",1);	
-			Bot.println("Green/Black",2);
-			Bot.println("Green/Yellow",3);
-			Bot.println("Blue/Red",4);
-			Bot.println("Blue/Black",5);
-			Bot.println("Blue/Yellow",6);
-			if (Button.UP.isDown() && curseur >= 1) {
-				curseur++;
-			}
-			if (Button.DOWN.isDown() && curseur <= 6 ) {
+			if (Button.ESCAPE.isDown()) {
+				return;
+			} else if (Button.UP.isDown() && curseur > 1) {
+				LCD.drawString(" ", 0, curseur);
 				curseur--;
-			}		
+				LCD.drawString(">", 0, curseur);
+			} else if (Button.DOWN.isDown() && curseur < 6 ) {
+				LCD.drawString(" ", 0, curseur);
+				curseur++;
+				LCD.drawString(">", 0, curseur);
+			}
+			
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+			}
 		}
 		switch(curseur) {
 		case 1 : xDeparture = 1053;
