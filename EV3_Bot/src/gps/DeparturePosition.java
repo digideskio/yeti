@@ -12,9 +12,9 @@ import main.Bot;
 
 public class DeparturePosition {
 
-	private TextMenu textMenu;
 	private static int xDeparture;
 	private static int yDeparture;
+	private static int curseur = 1;
 	
 	public static int getxDeparture() {
 		return xDeparture;
@@ -31,29 +31,30 @@ public class DeparturePosition {
 
 	public static void choosePosition() {
 		while (Button.ENTER.isUp()) {
-			
-			//pas trouvé comment faire la sélection
-			
-			Bot.println("Green/Red",1);
-			xDeparture = 1053;
-			yDeparture = 1240 + 1248 + 1233 + 1265;
-			
+			Bot.println(">",curseur);
+			Bot.println("Green/Red",1);	
 			Bot.println("Green/Black",2);
-			xDeparture = 1053 + 1049;
-			yDeparture = 1240 + 1248 + 1233 + 1265;
-			
 			Bot.println("Green/Yellow",3);
-			xDeparture = 1053 + 1049 + 1041;
-			yDeparture = 1240 + 1248 + 1233 + 1265;
-			
 			Bot.println("Blue/Red",4);
-			xDeparture = 1053;
-			
 			Bot.println("Blue/Black",5);
-			xDeparture = 1053 + 1049;
-			
 			Bot.println("Blue/Yellow",6);
-			xDeparture = 1053 + 1049 + 1041;		
+			if (Button.UP.isDown() && curseur >= 1) {
+				curseur++;
+			}
+			if (Button.DOWN.isDown() && curseur <= 6 ) {
+				curseur--;
+			}		
+		}
+		switch(curseur) {
+		case 1 : xDeparture = 1053;
+				 yDeparture = 1240 + 1248 + 1233 + 1265; break;
+		case 2 : xDeparture = 1053 + 1049;
+			     yDeparture = 1240 + 1248 + 1233 + 1265;break;
+		case 3 : xDeparture = 1053 + 1049 + 1041;
+				 yDeparture = 1240 + 1248 + 1233 + 1265;break;
+		case 4 : xDeparture = 1053;break;
+		case 5 : xDeparture = 1053 + 1049;break;
+		case 6 : xDeparture = 1053 + 1049 + 1041;break;
 		}
 	}
 }
