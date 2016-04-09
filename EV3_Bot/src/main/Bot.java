@@ -1,6 +1,5 @@
 package main;
 import sensors.ColorDetector;
-import config.DefaultPorts;
 import motor.BasicMotion;
 import gps.DeparturePosition;
 import gps.PositionTracker;
