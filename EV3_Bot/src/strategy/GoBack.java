@@ -9,7 +9,7 @@ public class GoBack implements Tactic {
 
 	StraightMotion smotion;
 	BasicColor color;
-	
+
 	public GoBack() {
 		smotion = new StraightMotion();
 	}
@@ -38,29 +38,32 @@ public class GoBack implements Tactic {
 	 */
 	@Override
 	public boolean perform() {
-		
+
 		BasicMotion.rotate(180);
 		BasicMotion.moveBy(10);
-		
-		/**int x = Bot.getGPS().getRawX();
-		int y = Bot.getGPS().getRawY();
-		if(y>3590 && x < 1080){//half sup of the terrain + 30 
-			BasicMotion.moveBy(10);
-			int newX = Bot.getGPS().getRawX();
-			int newY = Bot.getGPS().getRawY();
-			if (newY > y){
+		/**
+		 * REVOIR FAIRE DEUX CAS -- si on est soit en a dte soit a gche soit en
+		 * haut soit en bas faire ramené au centre (ligne noir) puis aller soit
+		 * a bleu/ vert puis stop
+		 */
+		BasicColor[] isBorG = { BasicColor.Blue, BasicColor.Green };
+		int x = Bot.getGPS().getRawX(); // Position of Yeti
+		float orientation = 0;
+		if (x > 1053 + 1049) // if Yeti is in the right part
+			orientation = Bot.getGPS().getOrientation().diff(-1, 0);
+		else
+			orientation = Bot.getGPS().getOrientation().diff(1, 0);
+		BasicMotion.rotate((int) orientation);
+		if (Bot.getSensorsCache().getColor() == BasicColor.Black) {
+			FollowLine fL = new FollowLine(BasicColor.Black, isBorG[0]);
+			FollowLine fL2 = new FollowLine(BasicColor.Black, isBorG[1]);
+			fL.perform();
+			if (Bot.getSensorsCache().getColor() == BasicColor.White) {
 				BasicMotion.rotate(180);
+				fL2.perform();
 			}
-			if( newX< 1080*4 && newX>1080*3)
-				
-			while(y > 3560 ){
-				smotion.start(true);
-				color = Bot.getSensorsCache().getColor();
-				if (color == BasicColor.Black)
-					y=3560;
-			}
+
 		}
-		*/
 		return true;
 	}
 

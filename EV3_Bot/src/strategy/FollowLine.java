@@ -47,7 +47,7 @@ public class FollowLine implements Tactic {
 		BasicColor curColor = Bot.getSensorsCache().getColor();
 		DefaultPorts.getRightMotor().forward();
 		DefaultPorts.getLeftMotor().forward();
-		if (curColor == stopColor) {
+		if (curColor == stopColor || curColor == BasicColor.White) {
 			// stop yeti
 			DefaultPorts.getLeftMotor().setSpeed(0);
 			DefaultPorts.getRightMotor().setSpeed(0);
