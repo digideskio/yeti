@@ -98,13 +98,14 @@ public class PositionTracker {
 	 * false if we believe it was a vertical line
 	 */
 	@SuppressWarnings("incomplete-switch")
-	public void crossLine(BasicColor color, boolean horizontal) {	
+	public void crossLine(BasicColor color) {
+		boolean horizontal = true;
 		switch(color) {
 		case Black:
 			if (horizontal)
-				crossHLine(2);
+				rawy = 1240 + 1248;
 			else
-				crossVLine(1);
+				rawx = 1053 + 1049;
 			return;
 		}
 		
@@ -117,19 +118,19 @@ public class PositionTracker {
 					crossHLine(4);
 				return;
 			case Green:
-				crossHLine(1);
+				rawy = 1240 + 1248 + 1233;
 				return;
 			case Blue:
-				crossHLine(3);
+				rawy = 1240;
 				return;
 			}
 		} else {
 			switch(color) {
 			case Yellow:
-				crossVLine(0);
+				rawx = 1053 + 1049 + 1041;
 				return;
 			case Red:
-				crossVLine(2);
+				rawx = 1053;
 				return;
 			}
 		}
