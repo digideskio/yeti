@@ -1,8 +1,6 @@
 package strategy;
 
 
-
-import gps.PositionTracker;
 import main.Bot;
 import sensors.BasicColor;
 import sensors.SensorsCache;
@@ -14,7 +12,6 @@ public class CrossLineTactic implements Tactic {
 	private boolean stopped;
 	BasicColor currentColor;
 	SensorsCache cache;
-	PositionTracker gps;
 	AvoidFoe avoidfoe;
 	GoBack goback;
 	
@@ -25,7 +22,6 @@ public class CrossLineTactic implements Tactic {
 	CrossLineTactic() {
 		stopped = false;
 		cache = Bot.getSensorsCache();
-		gps = Bot.getGPS();		
 	}
 	
 	@Override
@@ -47,11 +43,14 @@ public class CrossLineTactic implements Tactic {
 
 	@Override
 	public boolean perform() {
+		
+		currentColor = cache.getColor();
+		
 		if (stopped)
 			return true;
 		
 		if (currentColor != BasicColor.Gray) {
-			gps.crossLine(currentColor);
+			Bot.getGPS().crossLine(currentColor);
 		}
 		
 		return false;
