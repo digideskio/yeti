@@ -1,6 +1,6 @@
 package strategy;
 
-import sensors.BasicColor;
+
 
 public class MainTactic implements Tactic {
 	PincerTactic pincerTactic;

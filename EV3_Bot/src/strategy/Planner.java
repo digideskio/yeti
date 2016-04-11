@@ -1,7 +1,5 @@
 package strategy;
 
-import sensors.BasicColor;
-
 /**
  * Decides what tactics to follow to maximize our performance React to immediate
  * sensory inputs, deviating from the current tactics as needed

@@ -2,7 +2,6 @@ package sensors;
 
 import config.DefaultPorts;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
-import lejos.hardware.sensor.SensorMode;
 import lejos.robotics.SampleProvider;
 
 public class SonarSensor {

@@ -3,7 +3,6 @@ package strategy;
 import main.Bot;
 import motor.BasicMotion;
 import motor.StraightMotion;
-import gps.Orientation;
 import gps.PositionTracker;
 
 public class MoveToTactic implements Tactic {
