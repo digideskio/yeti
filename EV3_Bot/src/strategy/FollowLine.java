@@ -1,6 +1,7 @@
 package strategy;
 
 import config.DefaultPorts;
+import lejos.hardware.motor.NXTRegulatedMotor;
 import main.Bot;
 import sensors.BasicColor;
 
@@ -9,10 +10,18 @@ public class FollowLine implements Tactic {
 	private GoBack goback;
 	private BasicColor c;
 	private BasicColor stopColor;
+	private NXTRegulatedMotor m1, m2;
 
-	public FollowLine(BasicColor color, BasicColor stop) {
+	public FollowLine(BasicColor color, BasicColor stop, boolean followFromLeft) {
 		c = color;
 		stopColor = stop;
+		if (followFromLeft) {
+			m1 = DefaultPorts.getLeftMotor();
+			m2 = DefaultPorts.getRightMotor();
+		} else {
+			m1 = DefaultPorts.getRightMotor();
+			m2 = DefaultPorts.getLeftMotor();
+		}
 	}
 
 	@Override
@@ -45,19 +54,19 @@ public class FollowLine implements Tactic {
 				goback = null;
 		}
 		BasicColor curColor = Bot.getSensorsCache().getColor();
-		DefaultPorts.getRightMotor().forward();
-		DefaultPorts.getLeftMotor().forward();
-		if (curColor == stopColor || curColor == BasicColor.White) {
+		m1.forward();
+		m2.forward();
+		if (curColor == stopColor) {
 			// stop yeti
-			DefaultPorts.getLeftMotor().setSpeed(0);
-			DefaultPorts.getRightMotor().setSpeed(0);
+			m1.setSpeed(0);
+			m2.setSpeed(0);
 			return true;
 		} else {
 			// turn left to find the searched color
 			int dist = Bot.getSensorsCache().getLineDistance(c);
 			int baseSpeed = 360, speedo = 120;
-			DefaultPorts.getLeftMotor().setSpeed(baseSpeed + speedo * dist / 100);
-			DefaultPorts.getRightMotor().setSpeed(baseSpeed + speedo * (100 - dist) / 100);
+			m1.setSpeed(baseSpeed + speedo * dist / 100);
+			m2.setSpeed(baseSpeed + speedo * (100 - dist) / 100);
 		}
 
 		return false;

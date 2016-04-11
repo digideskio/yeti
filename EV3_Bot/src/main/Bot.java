@@ -107,6 +107,6 @@ public class Bot {
 		FPS += 1;
 		
 		// 5. Don't sample inputs too often to slightly reduce chances of outliers
-		Delay.msDelay(10);
+		Delay.msDelay(5);
 	}
 }

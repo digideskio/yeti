@@ -17,7 +17,7 @@ public class StraightMotion {
 	private float speed;
 	
 	public StraightMotion() {
-		this(lm.getMaxSpeed());
+		this(800);
 	}
 	
 	public StraightMotion(float speed) {

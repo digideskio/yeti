@@ -71,6 +71,15 @@ public class PaletPosition {
 			}
 		}
 	}
+	
+	public static int getFreeDiscs() {
+		int n = numberOfDiscs;
+		for (int i = 0; i < numberOfDiscs; i++) {
+			if (palets[i].isCaptured)
+				n--;
+		}
+		return n;
+	}
 
 	/**
 	 * Gets Yeti's coordinates when the robot caught a disc and changes the

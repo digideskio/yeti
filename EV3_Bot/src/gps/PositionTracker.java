@@ -3,11 +3,7 @@ package gps;
 import sensors.BasicColor;
 
 /**
- * Keeps track of the current zone/line of the terrain
- * we think we're in by looking at lines crossed
- * TODO: Keep better track of world coordinates (rawx,rawy)
- * 		 In particular we need to know the size of a terrain cell
- * 		 and assume that we start in the middle of a cell, not at 0,0
+ * Keeps track of the current position and orientation we think we're at
  */
 public class PositionTracker {
 	static final double DEG2RAD = (2*Math.PI)/360.;

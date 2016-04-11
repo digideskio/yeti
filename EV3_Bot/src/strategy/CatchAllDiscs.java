@@ -2,6 +2,12 @@ package strategy;
 
 import java.util.Date;
 
+import sensors.BasicColor;
+
+import main.Bot;
+import motor.BasicMotion;
+import motor.StraightMotion;
+
 import gps.PaletPosition;
 
 
@@ -14,19 +20,24 @@ import gps.PaletPosition;
 
 public class CatchAllDiscs implements Tactic {
 	
-	MoveToTactic move;
 	PaletPosition disc;
 	String name;
 	boolean abort;
 	private AvoidFoe avoidfoe;
 	private GoBack goback;
 	private Date first;
+	private boolean followFromLeft;
+	private FindVLine findLine;
+	private FollowLine followLine;
+	private BasicColor hcolor, vcolor;
+	private StraightMotion firstMove;
 
 	
 	public CatchAllDiscs() {
 		this.disc = new PaletPosition();
 		abort = false;
 		first = null;
+		firstMove = new StraightMotion();
 	}
 
 	@Override
@@ -49,13 +60,18 @@ public class CatchAllDiscs implements Tactic {
 
 	@Override
 	public boolean perform() {
-//		if (abort == true) {
-//			if (move != null) {
-//				move.abort();
-//				move.perform();
-//			}
-//			return true;
-//		}
+		if (abort == true) {
+			if (findLine != null) {
+				findLine.abort();
+				findLine.perform();
+			}
+			if (followLine != null) {
+				followLine.abort();
+				followLine.perform();
+			}
+			return true;
+		}
+		
 		if (avoidfoe != null) {
 			boolean result = avoidfoe.perform();
 			if (result)
@@ -66,32 +82,58 @@ public class CatchAllDiscs implements Tactic {
 			if (res)
 				goback = null;
 		}
-		if (abort == true) {
-			if (move != null) {
-				move.abort();
-				move.perform();
-			}
-			return true;
-		}
-		if (first != null && new Date().getTime() - first.getTime() > 500) {
-			PaletPosition.discCaptured();
-			first = null;
-			return true;
-		}	
-		if (disc.isFreeDiscs()) {		
-			if (this.move == null ) {
-				this.disc.nearestPalet();
-				this.move = new MoveToTactic(disc.getGoToX(),disc.getGoToY());
-				name = move.getDisplayName();
-			}
-			if (move.perform() == true) {
-				first = new Date();
-				move = null;
+		
+		if (disc.isFreeDiscs()) {
+			if (disc.getFreeDiscs() == 9) {
+				if (firstMove != null) {
+					if (!firstMove.isMoving())
+						firstMove.start(true);
+					firstMove.updateGPS();
+					name = "CAD_first";
+				}
+			} else if (followLine != null) {
+				if (followLine.perform()) {
+					followLine = null;
+					findLine = null;
+					name = null;
+				}
+			} else if (findLine != null) {
+				if (findLine.perform()) {
+					followLine = new FollowLine(vcolor, hcolor, followFromLeft);
+					name = followLine.getDisplayName();
+					if (followFromLeft)
+						BasicMotion.rotate(70);
+					else
+						BasicMotion.rotate(-70);
+				}
 			} else {
-				return false;	
+				this.disc.nearestPalet();				
+				followFromLeft = !((Bot.getGPS().getRawX() < disc.getGoToX())
+										^ (Bot.getGPS().getRawY() < disc.getGoToY()));
+			
+				if (disc.getGoToY() == 1240 + 1248 + 1233)
+					hcolor = BasicColor.Green;
+				else if (disc.getGoToY() == 1240 + 1248)
+					hcolor = BasicColor.Black;
+				else if (disc.getGoToY() == 1240)
+					hcolor = BasicColor.Blue;
+				else
+					throw new IllegalArgumentException("Invalid Y position");
+				
+				if (disc.getGoToX() == 1053 + 1049 + 1041)
+					vcolor = BasicColor.Yellow;
+				else if (disc.getGoToX() == 1053 + 1049)
+					vcolor = BasicColor.Black;
+				else if (disc.getGoToX() == 1053)
+					vcolor = BasicColor.Red;
+				else
+					throw new IllegalArgumentException("Invalid X position");
+				
+				findLine = new FindVLine(vcolor);
+				name = findLine.getDisplayName();
 			}
-			name = null;
-			return true;
+
+			return false;
 		} else {
 			return true;
 		}	
@@ -100,11 +142,15 @@ public class CatchAllDiscs implements Tactic {
 	@Override
 	public void abort() {
 		abort = true;
+		if (firstMove != null) {
+			firstMove.stop();
+			firstMove = null;
+		}
 	}
 
 	@Override
 	public void stop() {
-		abort = true;
+		abort();
 	}
 
 }

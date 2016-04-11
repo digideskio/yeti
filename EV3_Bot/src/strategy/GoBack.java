@@ -57,8 +57,8 @@ public class GoBack implements Tactic {
 		StraightMotion sm = new StraightMotion();
 		sm.start(true);
 		if (Bot.getSensorsCache().getColor() == BasicColor.Black) {
-			FollowLine fL = new FollowLine(BasicColor.Black,BasicColor.Blue);
-			FollowLine fL2 = new FollowLine(BasicColor.Black,BasicColor.Green);
+			FollowLine fL = new FollowLine(BasicColor.Black,BasicColor.Blue, true);
+			FollowLine fL2 = new FollowLine(BasicColor.Black,BasicColor.Green, true);
 			fL.perform();
 			if (Bot.getSensorsCache().getColor() == BasicColor.White) {
 				BasicMotion.rotate(180);
