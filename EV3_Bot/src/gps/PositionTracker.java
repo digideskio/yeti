@@ -136,8 +136,6 @@ public class PositionTracker {
 				return;
 			}
 		}
-		
-		throw new IllegalArgumentException("This line doesn't exist");
 	}
 
 }

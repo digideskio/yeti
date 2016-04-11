@@ -17,7 +17,7 @@ public class StraightMotion {
 	private float speed;
 	
 	public StraightMotion() {
-		this(800);
+		this(720);
 	}
 	
 	public StraightMotion(float speed) {
@@ -39,7 +39,7 @@ public class StraightMotion {
 		lm.synchronizeWith(new RegulatedMotor[]{rm});
 		lm.startSynchronization();
 		lm.setSpeed(speed);
-		rm.setSpeed(speed);
+		rm.setSpeed(speed-(int)(speed*.08));
 		if (forward) {
 			lm.forward();
 			rm.forward();
