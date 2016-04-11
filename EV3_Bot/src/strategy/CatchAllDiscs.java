@@ -49,13 +49,13 @@ public class CatchAllDiscs implements Tactic {
 
 	@Override
 	public boolean perform() {
-		if (abort == true) {
-			if (move != null) {
-				move.abort();
-				move.perform();
-			}
-			return true;
-		}
+//		if (abort == true) {
+//			if (move != null) {
+//				move.abort();
+//				move.perform();
+//			}
+//			return true;
+//		}
 		if (avoidfoe != null) {
 			boolean result = avoidfoe.perform();
 			if (result)
@@ -65,6 +65,13 @@ public class CatchAllDiscs implements Tactic {
 			boolean res = goback.perform();
 			if (res)
 				goback = null;
+		}
+		if (abort == true) {
+			if (move != null) {
+				move.abort();
+				move.perform();
+			}
+			return true;
 		}
 		if (first != null && new Date().getTime() - first.getTime() > 500) {
 			PaletPosition.discCaptured();
