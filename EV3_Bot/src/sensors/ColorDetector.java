@@ -112,10 +112,10 @@ public class ColorDetector implements Closeable {
 		/// Right now it works incredibly well on random objects,
 		/// much better than the official one, but it needs tuning for the terrain
 		if (V <= 1)
-			return BasicColor.None;
+			return BasicColor.Gray;
 		else if (V <= 15)
 			return BasicColor.Black;
-		else if (S <= 70 && V >= 80)
+		else if (S <= 40 && V >= 30)
 			return BasicColor.White;
 		else if (S > 40) {
 			if ((H <= 30 || H >= 300) && S >= 60)

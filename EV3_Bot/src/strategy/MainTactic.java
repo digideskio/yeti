@@ -6,11 +6,13 @@ public class MainTactic implements Tactic {
 	PincerTactic pincerTactic;
 	Tactic mainTactic;
 	PaletBackBase goBackTactic;
+	CrossLineTactic crossLine;
 	private boolean paletCaptured;
 	
 	MainTactic() {
 		pincerTactic = new PincerTactic();
 		mainTactic = new CatchAllDiscs();
+		crossLine = new CrossLineTactic();
 		paletCaptured = false;
 	}
 	
@@ -40,6 +42,7 @@ public class MainTactic implements Tactic {
 		if(!paletCaptured){
 			mainTactic.perform();
 			paletCaptured = pincerTactic.perform();
+			crossLine.perform();
 			
 		} else {
 			if (goBackTactic == null)
