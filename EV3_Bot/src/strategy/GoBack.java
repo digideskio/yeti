@@ -43,10 +43,10 @@ public class GoBack implements Tactic {
 		BasicMotion.moveBy(10);
 		/**
 		 * REVOIR FAIRE DEUX CAS -- si on est soit en a dte soit a gche soit en
-		 * haut soit en bas faire ramen� au centre (ligne noir) puis aller soit
-		 * a bleu/ vert puis stop
+		 * haut soit en bas faire ramen� au centre (ligne noir) puis aller
+		 * soit a bleu/ vert puis stop
 		 */
-		//BasicColor[] isBorG = { BasicColor.Blue, BasicColor.Green };
+		// BasicColor[] isBorG = { BasicColor.Blue, BasicColor.Green };
 		int x = Bot.getGPS().getRawX(); // Position of Yeti
 		float orientation = 0;
 		if (x > 1053 + 1049) // if Yeti is in the right part
@@ -54,8 +54,7 @@ public class GoBack implements Tactic {
 		else
 			orientation = Bot.getGPS().getOrientation().diff(1, 0);
 		BasicMotion.rotate((int) orientation);
-		StraightMotion sm = new StraightMotion();
-		sm.start(true);
+		smotion.start(true);
 		if (Bot.getSensorsCache().getColor() == BasicColor.Black) {
 			FollowLine fL = new FollowLine(BasicColor.Black,BasicColor.Blue, true);
 			FollowLine fL2 = new FollowLine(BasicColor.Black,BasicColor.Green, true);

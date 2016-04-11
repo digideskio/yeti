@@ -95,9 +95,15 @@ public class PositionTracker {
 	 */
 	@SuppressWarnings("incomplete-switch")
 	public void crossLine(BasicColor color) {
-		boolean horizontal = true;
+		boolean horizontal;
+		if (orientation.getAngle() > 45 && orientation.getAngle() < 135
+				|| orientation.getAngle() > 225 && orientation.getAngle() < 315 ) {
+			horizontal = false;
+		} else {
+			horizontal = true;
+		}
 		switch(color) {
-		case Black:
+		case Black :
 			if (horizontal)
 				rawy = 1240 + 1248;
 			else
@@ -108,10 +114,10 @@ public class PositionTracker {
 		if (horizontal) {
 			switch(color) {
 			case White:
-				if (y <= 2)
-					crossHLine(0);
+				if (rawy < 1240)
+					rawy = 0;
 				else
-					crossHLine(4);
+					rawy = 1240 + 1248 + 1233 + 1265;
 				return;
 			case Green:
 				rawy = 1240 + 1248 + 1233;
@@ -133,76 +139,5 @@ public class PositionTracker {
 		
 		throw new IllegalArgumentException("This line doesn't exist");
 	}
-	
-	/**
-	 * Call when we cross a line so that we can update our position
-	 * @param linex An index in hlines
-	 */
-	public void crossHLine(int linex) {
-		if (y == linex) {
-			y++;
-		} else if (x == linex+1) {
-			y--;
-		} else {
-			// We're lost. Assume X didn't change, but that we had a jump in Y
-			if (throwWhenLost)
-				throw new IllegalArgumentException("We're lost (Err:H/"+linex+'/'+y+')');
-			y = linex + (y < linex ? 1 : 0);
-		}
-	}
-	
-	/**
-	 * Call when we cross a line so that we can update our position
-	 * @param liney An index in vlines
-	 */
-	public void crossVLine(int liney) {
-		if (x == liney) {
-			x++;
-		} else if (x == liney+1) {
-			x--;
-		} else {
-			// We're lost. Assume Y didn't change, but that we had a jump in X
-			if (throwWhenLost)
-				throw new IllegalArgumentException("We're lost (Err:V/"+liney+'/'+x+')');
-			x = liney + (x < liney ? 1 : 0);
-		}
-	}
-	
-	/**
-	 * Call when we start or stop following a line
-	 * @param horizontal True if we think we're following an horizontal line
-	 */
-	public void followLine(BasicColor line, boolean horizontal) {
-		this.followedLine = line;
-		// If the line isn't adjacent to where we think we are, we're lost
-		if (horizontal) {
-			if ((y==0 || hlines[y-1]!=line)
-				&& (y==5 || hlines[y]!=line)) {
-				if (throwWhenLost)
-					throw new IllegalArgumentException("We're lost (Err:FH/"+x+'/'+y+'/'+line+')');
-				
-				// Try to correct our position based on the line we're following
-				int match = -1;
-				for (int i=0; i<hlines.length; ++i)
-					if (hlines[i] == line)
-						match = i;
-				if (match != -1)
-					y = match + (y<match? 0 : 1);
-			}
-		} else {
-			if ((x==0 || vlines[x-1]!=line)
-				&& (x==3 || vlines[x]!=line)) {
-				if (throwWhenLost)
-					throw new IllegalArgumentException("We're lost (Err:FV/"+x+'/'+y+'/'+line+')');
-				
-				// Try to correct our position based on the line we're following
-				int match = -1;
-				for (int i=0; i<vlines.length; ++i)
-					if (vlines[i] == line)
-						match = i;
-				if (match != -1)
-					x = match + (x<match? 0 : 1);
-			}
-		}
-	}
+
 }

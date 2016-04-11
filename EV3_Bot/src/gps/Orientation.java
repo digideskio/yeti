@@ -37,7 +37,7 @@ public class Orientation {
 	
 	/**
 	 * Returns the difference in degrees between two orientations
-	 */
+	 */	
 	public float diff(Orientation other) {
 		return other.worldYaw - worldYaw;
 	}

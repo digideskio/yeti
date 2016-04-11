@@ -6,6 +6,7 @@ public class MainTactic implements Tactic {
 	PincerTactic pincerTactic;
 	Tactic mainTactic;
 	PaletBackBase goBackTactic;
+	CrossLineTactic crossLine;
 	private boolean paletCaptured;
 	
 	MainTactic() {
@@ -40,6 +41,7 @@ public class MainTactic implements Tactic {
 		if(!paletCaptured){
 			mainTactic.perform();
 			paletCaptured = pincerTactic.perform();
+			crossLine.perform();
 			
 		} else {
 			if (goBackTactic == null)
