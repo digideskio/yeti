@@ -1,7 +1,7 @@
 package strategy;
 
 
-import gps.Orientation;
+
 import gps.PositionTracker;
 import main.Bot;
 import sensors.BasicColor;
@@ -22,9 +22,8 @@ public class CrossLineTactic implements Tactic {
 	 * Moves up to a line of the given color in the given direction 
 	 * then keeps going for crossDistance units
 	 */
-	CrossLineTactic(BasicColor line, Orientation direction, int crossDistance) {
+	CrossLineTactic() {
 		stopped = false;
-		currentColor = line;
 		cache = Bot.getSensorsCache();
 		gps = Bot.getGPS();		
 	}

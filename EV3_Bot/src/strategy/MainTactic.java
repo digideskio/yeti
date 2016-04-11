@@ -12,6 +12,7 @@ public class MainTactic implements Tactic {
 	MainTactic() {
 		pincerTactic = new PincerTactic();
 		mainTactic = new CatchAllDiscs();
+		crossLine = new CrossLineTactic();
 		paletCaptured = false;
 	}
 	
