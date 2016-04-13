@@ -102,7 +102,6 @@ public class Bot {
 			// At 30cm we're getting close to an object, but
 			// still have some time to swerve around and we shouldn't
 			// get false positives from non-critical obstacles
-			println("AVOID !", 0);
 			planner.handleObstacle();
 		}
 
@@ -110,7 +109,7 @@ public class Bot {
 		planner.performTactics();
 
 		// 4. Print status
-		// println("Pos:"+gps.getRawPosString()+" "+gps.getPosDescription(), 0);
+		println("Pos:" + gps.getRawPosString() + " " + gps.getPosDescription(), 0);
 		println("Rot:" + gps.getOrientation().getAngle(), 1);
 		println("Pressed:" + (cache.isButtonPressed() ? "Yes" : "No"), 2);
 		println("Distance:" + String.format("%.1f", sonarDistance) + "cm", 3);
