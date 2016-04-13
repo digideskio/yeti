@@ -70,7 +70,7 @@ public class FollowLine implements Tactic {
 		} else {
 			// turn left to find the searched color
 			int dist = Bot.getSensorsCache().getLineDistance(c);
-			int baseSpeed = 220, speedo = 180;
+			int baseSpeed = 220, speedo = 160;
 			m1.setSpeed(baseSpeed + speedo * dist / 100);
 			m2.setSpeed(baseSpeed + speedo * (100 - dist) / 100);
 		}

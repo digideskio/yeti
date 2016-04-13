@@ -15,6 +15,7 @@ public class PaletPosition {
 	int goToY;
 	static int xCapturedDisc = -1; // coordinates of the captured disc
 	static int yCapturedDisc = -1;
+	static boolean triedCapture;
 
 	public PaletPosition() {
 		if (palets == null) {
@@ -86,6 +87,7 @@ public class PaletPosition {
 	 * state of disc
 	 */
 	public static void discCaptured() {
+		triedCapture = true;
 		xCapturedDisc = Bot.getGPS().getRawX();
 		yCapturedDisc = Bot.getGPS().getRawY();
 		double radius, distX, distY;
@@ -113,4 +115,7 @@ public class PaletPosition {
 		return false;
 	}
 
+	public static boolean hasTriedCapture() {
+		return triedCapture;
+	}
 }

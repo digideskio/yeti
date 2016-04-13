@@ -56,7 +56,7 @@ public class PaletBackBase implements Tactic {
 				goback = null;
 		}
 		
-		if(PaletPosition.getFreeDiscs() == 9-1 && goCenter != null){
+		if(!PaletPosition.hasTriedCapture() && goCenter != null){
 			if (goCenter.perform()) {
 				goCenter = null;
 				Bot.getGPS().rotatedBy(5);
