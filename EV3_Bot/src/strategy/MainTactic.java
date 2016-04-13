@@ -14,7 +14,7 @@ public class MainTactic implements Tactic {
 	MainTactic() {
 		pincerTactic = new PincerTactic();
 		mainTactic = new CatchAllDiscs();
-		//mainTactic = new FollowLine(BasicColor.Red, BasicColor.Blue, false);
+		//mainTactic = new FollowLine(BasicColor.Yellow, BasicColor.Green, true);
 		crossLine = new CrossLineTactic();
 		paletCaptured = false;
 	}

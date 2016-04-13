@@ -101,10 +101,14 @@ public class CatchAllDiscs implements Tactic {
 				if (findLine.perform()) {
 					followLine = new FollowLine(vcolor, hcolor, followFromLeft);
 					name = followLine.getDisplayName();
-					if (followFromLeft)
-						BasicMotion.rotate(70);
-					else
-						BasicMotion.rotate(-70);
+					BasicMotion.moveBy(100);
+					if (followFromLeft) {
+						BasicMotion.rotate(80);
+						Bot.getGPS().rotatedBy(10);
+					} else {
+						BasicMotion.rotate(-80);
+						Bot.getGPS().rotatedBy(-10);
+					}
 				}
 			} else {
 				this.disc.nearestPalet();				

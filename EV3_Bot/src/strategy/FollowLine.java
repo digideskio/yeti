@@ -69,10 +69,10 @@ public class FollowLine implements Tactic {
 			return true;
 		} else {
 			// turn left to find the searched color
-			float dist = Bot.getSensorsCache().getLineDistance(c);
-			int baseSpeed = 180, speedo = 180;
-			m1.setSpeed(baseSpeed + speedo * dist);
-			m2.setSpeed((int)(baseSpeed + speedo * (1.0 - dist)));
+			int dist = Bot.getSensorsCache().getLineDistance(c);
+			int baseSpeed = 220, speedo = 180;
+			m1.setSpeed(baseSpeed + speedo * dist / 100);
+			m2.setSpeed(baseSpeed + speedo * (100 - dist) / 100);
 		}
 
 		return false;

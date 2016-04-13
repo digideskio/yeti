@@ -143,17 +143,17 @@ public class ColorDetector implements Closeable {
 	 * Assumes that the background (outside of the line) is Gray,
 	 * if the background is too colorful the function might think it's always on the line
 	 */
-	public float getLineDistance(BasicColor color) {
+	public int getLineDistance(BasicColor color) {
 		return getLineDistance(color, BasicColor.Gray);
 	}
 	
-	public float getLineDistance(BasicColor color, BasicColor background) {
+	public int getLineDistance(BasicColor color, BasicColor background) {
 		// Take the distance between the given color and gray and define it as 100 units,
 		// then clamp the distance between the current color and the target to 100 units.
 		// Only consider S and V because for low S/V, H becomes meaningless.
 		
 		int vcoeff = 1;
-		ColorHSV target = color.toHSV(), bg = background.toHSV(), current = getHSV();
+		ColorHSV target = color.toHSV(), bg = background.toHSV(), current = getHSV();;
 		
 		// For low V, S varies a *lot* so don't take it as much into account
 		if (current.getV() <= 5)
@@ -166,8 +166,7 @@ public class ColorDetector implements Closeable {
 					+ Math.abs(target.getV() - bg.getV()) * vcoeff;
 		
 		curDist = Math.max(Math.min(curDist*110/refDist - 10, 100), 0);
-		float fDist = (float)(curDist/100. - .5);
-		return fDist;
+		return curDist;
 	}
 	
 	public void close() {
