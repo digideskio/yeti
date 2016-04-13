@@ -49,12 +49,14 @@ public class CatchAllDiscs implements Tactic {
 	@Override
 	public boolean handleObstacle() {
 		avoidfoe = new AvoidFoe();
+		name = avoidfoe.getDisplayName();
 		return true;
 	}
 
 	@Override
 	public boolean handleContact() {
 		goback = new GoBack();
+		name = goback.getDisplayName();
 		return true;
 	}
 
