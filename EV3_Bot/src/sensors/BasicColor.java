@@ -38,13 +38,13 @@ public enum BasicColor {
 		case Gray:
 			return new ColorHSV(0,10,15);
 		case Red:
-			return new ColorHSV(0,85,15);
+			return new ColorHSV(0,85,25);
 		case Blue:
-			return new ColorHSV(240,65,15);
+			return new ColorHSV(200,70,20);
 		case Green:
-			return new ColorHSV(125,65,15);
+			return new ColorHSV(110,65,20);
 		case Yellow:
-			return new ColorHSV(70,80,15);
+			return new ColorHSV(45,77,40);
 		default:
 			return new ColorHSV(0,0,0);
 		}

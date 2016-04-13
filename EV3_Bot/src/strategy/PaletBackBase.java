@@ -1,5 +1,6 @@
 package strategy;
 
+import gps.PaletPosition;
 import main.Bot;
 import motor.BasicMotion;
 import motor.StraightMotion;
@@ -55,9 +56,11 @@ public class PaletBackBase implements Tactic {
 				goback = null;
 		}
 		
-		if(goCenter != null){
-			if (goCenter.perform())
+		if(PaletPosition.getFreeDiscs() == 9-1 && goCenter != null){
+			if (goCenter.perform()) {
 				goCenter = null;
+				Bot.getGPS().rotatedBy(5);
+			}
 			return false;
 		}
 		
@@ -73,8 +76,7 @@ public class PaletBackBase implements Tactic {
 		if (Bot.getSensorsCache().getColor() == BasicColor.White) {
 			smotion.stop();
 			BasicMotion.openClaw(true);
-			BasicMotion.moveBy(-180 * 3);
-			BasicMotion.rotate(180);
+			BasicMotion.moveBy(-180 * 2);
 			return true;
 		}
 		if (stopped) {

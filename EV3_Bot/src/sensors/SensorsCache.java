@@ -39,7 +39,7 @@ public class SensorsCache {
 		return cd.HSVtoColor(color);
 	}
 	
-	public int getLineDistance(BasicColor curColor) {
+	public float getLineDistance(BasicColor curColor) {
 		return cd.getLineDistance(curColor);
 	}
 	

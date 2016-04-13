@@ -1,7 +1,10 @@
 package main;
+import java.io.File;
+
 import sensors.ColorDetector;
 import motor.BasicMotion;
 import gps.DeparturePosition;
+import gps.PaletPosition;
 import gps.PositionTracker;
 import sensors.SensorsCache;
 import sensors.SonarSensor;
@@ -20,10 +23,18 @@ public class Bot {
 	private static SonarSensor sonar;
 	private static SensorsCache cache;
 	private static int FPS = 0;
+	private static File logFile;
 
 	public static void println(String text, int y) {
 		String padding = "                    ";
 		LCD.drawString(text + padding, 0, y);
+	}
+	
+	public static void log(String text) {
+		if (logFile == null) {
+			logFile = new File("Bot.log");
+		}
+		
 	}
 
 	/**
@@ -55,6 +66,7 @@ public class Bot {
 		sonar = new SonarSensor();
 		cache = new SensorsCache(cd, button, sonar);
 		planner = new Planner();
+		new PaletPosition();
 
 		println("Yeti Bot", 0);
 		DeparturePosition.choosePosition();
