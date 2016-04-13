@@ -15,10 +15,11 @@ public class PaletPosition {
 	int goToY;
 	static int xCapturedDisc = -1; // coordinates of the captured disc
 	static int yCapturedDisc = -1;
-	static boolean triedCapture;
+	static int captureAttempts;
 
 	public PaletPosition() {
 		if (palets == null) {
+			captureAttempts = 1;
 			palets = new Palet[numberOfDiscs];
 			palets[0] = new Palet(1053, 1240); // Intersection(Horizontal/Vertical)
 												// : Blue/Red     conversion 1cm ~ 21 robot units
@@ -87,7 +88,7 @@ public class PaletPosition {
 	 * state of disc
 	 */
 	public static void discCaptured() {
-		triedCapture = true;
+		captureAttempts++;
 		xCapturedDisc = Bot.getGPS().getRawX();
 		yCapturedDisc = Bot.getGPS().getRawY();
 		double radius, distX, distY;
@@ -115,7 +116,7 @@ public class PaletPosition {
 		return false;
 	}
 
-	public static boolean hasTriedCapture() {
-		return triedCapture;
+	public static boolean hasFirstCapture() {
+		return captureAttempts == 1;
 	}
 }

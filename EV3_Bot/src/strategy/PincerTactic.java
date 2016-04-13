@@ -39,8 +39,8 @@ public class PincerTactic implements Tactic{
 			return true;
 
 		if (Bot.getSensorsCache().isButtonPressed()) {
-			Bot.getPlanner().abort();
 			PaletPosition.discCaptured();
+			Bot.getPlanner().abort();
 			BasicMotion.closeClaw(true);
 			return true;
 		}

@@ -13,8 +13,11 @@ public class PaletBackBase implements Tactic {
 	private AvoidFoe avoidfoe;
 	private GoBack goback;
 	private MoveToTactic goCenter;
+	private static Boolean firstCapture;
 	
 	PaletBackBase() {
+		if (firstCapture == null)
+			firstCapture = false;
 		stopped = false;
 		smotion = new StraightMotion();
 		if(Bot.getGPS().isGreen())
@@ -56,9 +59,10 @@ public class PaletBackBase implements Tactic {
 				goback = null;
 		}
 		
-		if(!PaletPosition.hasTriedCapture() && goCenter != null){
+		if(!firstCapture && goCenter != null){
 			if (goCenter.perform()) {
 				goCenter = null;
+				firstCapture = true;
 				Bot.getGPS().rotatedBy(5);
 			}
 			return false;
