@@ -81,10 +81,4 @@ public class FindVLine implements Tactic {
 		stopped = true;
 		smotion.stop();
 	}
-
-	@Override
-	public void stop() {
-		abort();
-	}
-
 }

@@ -155,10 +155,4 @@ public class CatchAllDiscs implements Tactic {
 			followLine = null;
 		}
 	}
-
-	@Override
-	public void stop() {
-		abort();
-	}
-
 }

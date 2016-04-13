@@ -1,5 +1,7 @@
 package strategy;
 
+import sensors.BasicColor;
+
 
 
 public class MainTactic implements Tactic {
@@ -11,7 +13,8 @@ public class MainTactic implements Tactic {
 	
 	MainTactic() {
 		pincerTactic = new PincerTactic();
-		mainTactic = new CatchAllDiscs();
+		//mainTactic = new CatchAllDiscs();
+		mainTactic = new FollowLine(BasicColor.Red, BasicColor.Blue, false);
 		crossLine = new CrossLineTactic();
 		paletCaptured = false;
 	}
@@ -58,12 +61,7 @@ public class MainTactic implements Tactic {
 
 	@Override
 	public void abort() {
-	}
-
-	@Override
-	public void stop() {
-		mainTactic.stop();
+		mainTactic.abort();
 		mainTactic.perform();
 	}
-
 }

@@ -100,10 +100,4 @@ public class MoveToTactic implements Tactic {
 	public void abort() {
 		abort = true;
 	}
-
-	@Override
-	public void stop() {
-		abort = true;
-	}
-
 }

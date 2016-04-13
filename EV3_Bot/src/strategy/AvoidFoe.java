@@ -30,7 +30,7 @@ public class AvoidFoe implements Tactic {
 	}
 
 	/**
-	 * If Yeti see a foe, he had to avoid it. Yeti goes to right (90°) after
+	 * If Yeti see a foe, he had to avoid it. Yeti goes to right (90ï¿½) after
 	 * goes ahead (180*4 cm) and goes to left the robot returns to its line
 	 */
 	@Override
@@ -50,11 +50,4 @@ public class AvoidFoe implements Tactic {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public void stop() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

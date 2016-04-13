@@ -45,7 +45,7 @@ public class Planner {
 	/**
 	 * Stops the current tactic
 	 */
-	public void stop() {
-		currentTactic.stop();
+	public void abort() {
+		currentTactic.abort();
 	}
 }

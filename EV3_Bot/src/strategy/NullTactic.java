@@ -34,9 +34,4 @@ public class NullTactic implements Tactic {
 	public void abort() {
 		stopped = true;
 	}
-
-	@Override
-	public void stop() {
-		stopped = true;
-	}
 }

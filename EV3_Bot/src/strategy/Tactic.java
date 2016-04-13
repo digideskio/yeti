@@ -40,11 +40,4 @@ public interface Tactic {
 	 * perform() must immediately return false as a result of calling abort().
 	 */
 	void abort();
-	
-	/**
-	 * Requests that the tactic be stopped gracefully by quickly returning the
-	 * robot to a convenient state. perform() must eventually return false as
-	 * a result of calling stop().
-	 */
-	void stop();
 }

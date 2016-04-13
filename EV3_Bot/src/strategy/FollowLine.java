@@ -84,10 +84,4 @@ public class FollowLine implements Tactic {
 		m1.stop();
 		m2.stop();
 	}
-
-	@Override
-	public void stop() {
-		abort();
-	}
-
 }
