@@ -146,6 +146,14 @@ public class CatchAllDiscs implements Tactic {
 			firstMove.stop();
 			firstMove = null;
 		}
+		if (findLine != null) {
+			findLine.abort();
+			findLine = null;
+		}
+		if (followLine != null) {
+			followLine.abort();
+			followLine = null;
+		}
 	}
 
 	@Override

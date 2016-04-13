@@ -17,7 +17,7 @@ public class StraightMotion {
 	private float speed;
 	
 	public StraightMotion() {
-		this(720);
+		this(500);
 	}
 	
 	public StraightMotion(float speed) {
@@ -36,10 +36,8 @@ public class StraightMotion {
 		isMoving = true;
 		startTacho = lastUpdatedTacho = lm.getTachoCount();
 		
-		lm.synchronizeWith(new RegulatedMotor[]{rm});
-		lm.startSynchronization();
 		lm.setSpeed(speed);
-		rm.setSpeed(speed-(int)(speed*.08));
+		rm.setSpeed(speed);
 		if (forward) {
 			lm.forward();
 			rm.forward();
@@ -47,7 +45,6 @@ public class StraightMotion {
 			lm.backward();
 			rm.backward();
 		}
-		lm.endSynchronization();
 	}
 	
 	public void stop() {
@@ -56,10 +53,8 @@ public class StraightMotion {
 		
 		updateGPS();
 		
-		lm.startSynchronization();
 		lm.stop(true);
 		rm.stop(true);
-		lm.endSynchronization();
 	}
 	
 	/**

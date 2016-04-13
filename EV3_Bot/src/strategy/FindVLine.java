@@ -79,6 +79,7 @@ public class FindVLine implements Tactic {
 	@Override
 	public void abort() {
 		stopped = true;
+		smotion.stop();
 	}
 
 	@Override

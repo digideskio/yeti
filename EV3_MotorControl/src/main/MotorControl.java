@@ -36,12 +36,16 @@ public class MotorControl {
 		NXTRegulatedMotor lm = DefaultPorts.getLeftMotor(),
 		 		 rm = DefaultPorts.getRightMotor();
 		//lm.rotate((int)(360*4.47));
-		//sm.start(true);
-		BasicMotion.rotate(360);
+		sm.start(true);
+		//BasicMotion.rotate(360);
 		
 		while (Button.ESCAPE.isUp()) {
-			if (Button.ENTER.isDown())
-				sm.stop();
+			if (Button.ENTER.isDown()) {
+				if (sm.isMoving())
+					sm.stop();
+				else
+					sm.start(true);
+			}
 			
 			println("Tacho L:"+Motor.A.getTachoCount(), 2);
 			println("Tacho R:"+Motor.D.getTachoCount(), 3);

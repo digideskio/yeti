@@ -11,6 +11,7 @@ public class FollowLine implements Tactic {
 	private BasicColor c;
 	private BasicColor stopColor;
 	private NXTRegulatedMotor m1, m2;
+	private boolean abort;
 
 	public FollowLine(BasicColor color, BasicColor stop, boolean followFromLeft) {
 		c = color;
@@ -26,7 +27,7 @@ public class FollowLine implements Tactic {
 
 	@Override
 	public String getDisplayName() {
-		return "FollowLine";
+		return "FL"+c+stopColor;
 	}
 
 	@Override
@@ -53,6 +54,11 @@ public class FollowLine implements Tactic {
 			if (res)
 				goback = null;
 		}
+		if (abort) {
+			m1.stop();
+			m2.stop();
+			return true;
+		}
 		BasicColor curColor = Bot.getSensorsCache().getColor();
 		m1.forward();
 		m2.forward();
@@ -64,7 +70,7 @@ public class FollowLine implements Tactic {
 		} else {
 			// turn left to find the searched color
 			int dist = Bot.getSensorsCache().getLineDistance(c);
-			int baseSpeed = 360, speedo = 120;
+			int baseSpeed = 240, speedo = 160;
 			m1.setSpeed(baseSpeed + speedo * dist / 100);
 			m2.setSpeed(baseSpeed + speedo * (100 - dist) / 100);
 		}
@@ -74,14 +80,14 @@ public class FollowLine implements Tactic {
 
 	@Override
 	public void abort() {
-		// TODO Auto-generated method stub
-
+		abort = true;
+		m1.stop();
+		m2.stop();
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-
+		abort();
 	}
 
 }
