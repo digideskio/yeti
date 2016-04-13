@@ -41,27 +41,35 @@ public class GoBack implements Tactic {
 
 		BasicMotion.rotate(180);
 		BasicMotion.moveBy(10);
-		/**
-		 * REVOIR FAIRE DEUX CAS -- si on est soit en a dte soit a gche soit en
-		 * haut soit en bas faire ramen� au centre (ligne noir) puis aller
-		 * soit a bleu/ vert puis stop
-		 */
-		// BasicColor[] isBorG = { BasicColor.Blue, BasicColor.Green };
+		boolean left = false;
 		int x = Bot.getGPS().getRawX(); // Position of Yeti
 		float orientation = 0;
-		if (x > 1053 + 1049) // if Yeti is in the right part
+		if (x > 1053 + 1049) { // if Yeti is in the right part
 			orientation = Bot.getGPS().getOrientation().diff(-1, 0);
-		else
+			left = false;
+		} else {
 			orientation = Bot.getGPS().getOrientation().diff(1, 0);
+			left = true;
+		}
 		BasicMotion.rotate((int) orientation);
 		smotion.start(true);
 		if (Bot.getSensorsCache().getColor() == BasicColor.Black) {
-			FollowLine fL = new FollowLine(BasicColor.Black,BasicColor.Blue, true);
-			FollowLine fL2 = new FollowLine(BasicColor.Black,BasicColor.Green, true);
-			fL.perform();
-			if (Bot.getSensorsCache().getColor() == BasicColor.White) {
-				BasicMotion.rotate(180);
-				fL2.perform();
+			if (left) {
+				FollowLine fL = new FollowLine(BasicColor.Black, BasicColor.Blue, true);
+				FollowLine fL2 = new FollowLine(BasicColor.Black, BasicColor.Green, true);
+				fL.perform();
+				if (Bot.getSensorsCache().getColor() == BasicColor.White) {
+					fL.abort();
+					fL2.perform();
+				}
+			} else {
+				FollowLine fL = new FollowLine(BasicColor.Black, BasicColor.Blue, false);
+				FollowLine fL2 = new FollowLine(BasicColor.Black, BasicColor.Green, false);
+				fL.perform();
+				if (Bot.getSensorsCache().getColor() == BasicColor.White) {
+					fL.abort();
+					fL2.perform();
+				}
 			}
 		}
 		return true;
