@@ -108,9 +108,6 @@ public class ColorDetector implements Closeable {
 		int H = hsv.getH(), S = hsv.getS(), V = hsv.getV();
 		hsv = null;
 		
-		/// TODO: Tune to the actual terrain
-		/// Right now it works incredibly well on random objects,
-		/// much better than the official one, but it needs tuning for the terrain
 		if (V <= 1)
 			return BasicColor.Gray;
 		else if (V <= 15)
