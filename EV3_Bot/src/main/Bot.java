@@ -65,12 +65,12 @@ public class Bot {
 		button = new TouchSensor();
 		sonar = new SonarSensor();
 		cache = new SensorsCache(cd, button, sonar);
-		planner = new Planner();
-		new PaletPosition();
 
 		println("Yeti Bot", 0);
 		DeparturePosition.choosePosition();
 		gps = new PositionTracker(DeparturePosition.getxDeparture(), DeparturePosition.getyDeparture());
+		planner = new Planner();
+		new PaletPosition();
 		BasicMotion.openClaw(true);
 
 		while (Button.ESCAPE.isUp()) {
@@ -97,12 +97,12 @@ public class Bot {
 			// so anywhere under 10cm is guaranteed close contact
 			// With claws open we risk reaching 0cm with gives +inf,
 			// so 10cm is already getting pretty dangerous
-			planner.handleContact();
+			//planner.handleContact();
 		} else if (sonarDistance <= 30.f) {
 			// At 30cm we're getting close to an object, but
 			// still have some time to swerve around and we shouldn't
 			// get false positives from non-critical obstacles
-			planner.handleObstacle();
+			//planner.handleObstacle();
 		}
 
 		// 3. Perform our tactics

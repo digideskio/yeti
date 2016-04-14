@@ -63,7 +63,6 @@ public class PaletBackBase implements Tactic {
 			if (goCenter.perform()) {
 				goCenter = null;
 				firstCapture = true;
-				Bot.getGPS().rotatedBy(5);
 			}
 			return false;
 		}

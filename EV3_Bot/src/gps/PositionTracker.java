@@ -89,52 +89,39 @@ public class PositionTracker {
 	}
 	
 	/**
-	 * Call when we cross a line so that we can update our position
-	 * horizontal is true if we believe that we crossed an hozirontal line,
-	 * false if we believe it was a vertical line
+	 * Call when we cross a line so that we can update our position horizontal
+	 * is true if we believe that we crossed an hozirontal line, false if we
+	 * believe it was a vertical line
 	 */
 	@SuppressWarnings("incomplete-switch")
 	public void crossLine(BasicColor color) {
-		boolean horizontal;
-		if (orientation.getAngle() > 45 && orientation.getAngle() < 135
-				|| orientation.getAngle() > 225 && orientation.getAngle() < 315 ) {
-			horizontal = false;
-		} else {
+		boolean horizontal = false;
+		if (orientation.getAngle() > 0 && orientation.getAngle() < 45
+				|| orientation.getAngle() > 135 && orientation.getAngle() < 225
+				|| orientation.getAngle() > 315) {
 			horizontal = true;
 		}
-		switch(color) {
-		case Black :
-			if (horizontal)
-				rawy = 1240 + 1248;
+		switch (color) {
+		case White:
+			if (rawy < 1240 + 1248)
+				rawy = 0;
 			else
-				rawx = 1053 + 1049;
+				rawy = 1240 + 1248 + 1233 + 1265;
 			return;
-		}
-		
-		if (horizontal) {
-			switch(color) {
-			case White:
-				if (rawy < 1240)
-					rawy = 0;
-				else
-					rawy = 1240 + 1248 + 1233 + 1265;
-				return;
-			case Green:
-				rawy = 1240 + 1248 + 1233;
-				return;
-			case Blue:
-				rawy = 1240;
-				return;
-			}
-		} else {
-			switch(color) {
-			case Yellow:
-				rawx = 1053 + 1049 + 1041;
-				return;
-			case Red:
-				rawx = 1053;
-				return;
-			}
+		case Green:
+			rawy = 1240 + 1248 + 1233;
+			return;
+		case Blue:
+			rawy = 1240;
+			return;
+
+		case Yellow:
+			rawx = 1053 + 1049 + 1041;
+			return;
+		case Red:
+			rawx = 1053;
+			return;
+
 		}
 	}
 

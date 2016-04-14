@@ -111,7 +111,7 @@ public class CatchAllDiscs implements Tactic {
 					}
 				}
 			} else {
-				this.disc.nearestPalet();				
+				this.disc.nearestLine();				
 				followFromLeft = !((Bot.getGPS().getRawX() < disc.getGoToX())
 										^ (Bot.getGPS().getRawY() < disc.getGoToY()));
 			
