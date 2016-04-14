@@ -94,10 +94,13 @@ public class CatchAllDiscs implements Tactic {
 				}
 			} else if (discMissing) {
 				PaletPosition.discCaptured();
+				Bot.log("Disc missing, moving back");
 				BasicMotion.moveBy(-500);
 				discMissing = false;
 			} else if (followLine != null) {
 				if (followLine.perform()) {
+					Bot.log("Done following line "+followLine.getColor()
+							+" to "+followLine.getStopColor());
 					followLine = null;
 					findLine = null;
 					name = null;
@@ -106,6 +109,8 @@ public class CatchAllDiscs implements Tactic {
 			} else if (findLine != null) {
 				if (findLine.perform()) {
 					followLine = new FollowLine(vcolor, hcolor, followFromLeft);
+					Bot.log("Trying to follow line "+vcolor+" to "+hcolor
+							+" from "+(followFromLeft ? "left" : "right"));
 					name = followLine.getDisplayName();
 					BasicMotion.moveBy(100);
 					if (followFromLeft) {
@@ -140,6 +145,7 @@ public class CatchAllDiscs implements Tactic {
 					throw new IllegalArgumentException("Invalid X position");
 				
 				findLine = new FindVLine(vcolor);
+				Bot.log("Trying to find vline "+vcolor+" for hline "+hcolor);
 				name = findLine.getDisplayName();
 			}
 

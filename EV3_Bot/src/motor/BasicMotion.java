@@ -1,5 +1,7 @@
 package motor;
 
+import java.util.Arrays;
+
 import config.DefaultPorts;
 import lejos.hardware.motor.NXTRegulatedMotor;
 import main.Bot;
@@ -39,6 +41,9 @@ public class BasicMotion {
 	 * Move the robot (forward or backwards) by a given number of units and stops
 	 */
 	public static void moveBy(int units) {
+		Bot.log("MoveBy"+units+" stack:\n"
+				+Arrays.toString(Thread.currentThread().getStackTrace()));
+		
 		int maxSpeed = (int)lm.getMaxSpeed();
 		int minSpeed = 45;
 		int accelDist = 50, decelDist = 180;

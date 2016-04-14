@@ -82,6 +82,7 @@ public class PaletBackBase implements Tactic {
 		smotion.updateGPS();
 		
 		if (Bot.getSensorsCache().getColor() == BasicColor.White) {
+			Bot.log("Got back to the base");
 			smotion.stop();
 			BasicMotion.openClaw(true);
 			BasicMotion.moveBy(-180 * 2);

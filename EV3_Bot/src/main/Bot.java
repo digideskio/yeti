@@ -1,6 +1,8 @@
 package main;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import gps.DeparturePosition;
 import gps.PaletPosition;
@@ -23,7 +25,7 @@ public class Bot {
 	private static SonarSensor sonar;
 	private static SensorsCache cache;
 	private static int FPS = 0;
-	private static File logFile;
+	private static FileWriter logfile;
 
 	public static void println(String text, int y) {
 		String padding = "                    ";
@@ -31,10 +33,11 @@ public class Bot {
 	}
 
 	public static void log(String text) {
-		if (logFile == null) {
-			logFile = new File("Bot.log");
+		try {
+			logfile.write(text+"\n");
+			logfile.flush();
+		} catch (IOException e) {
 		}
-
 	}
 
 	/**
@@ -65,6 +68,10 @@ public class Bot {
 		button = new TouchSensor();
 		sonar = new SonarSensor();
 		cache = new SensorsCache(cd, button, sonar);
+		try {
+			logfile = new FileWriter("bot.log",true);
+		} catch (IOException e) {
+		}
 
 		println("Yeti Bot", 0);
 		DeparturePosition.choosePosition();

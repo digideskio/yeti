@@ -60,7 +60,7 @@ public class FindVLine implements Tactic {
 			stopped = true;
 			smotion.stop();
 			try {
-				Thread.sleep(500, 0);
+				Thread.sleep(2000, 0);
 			} catch (InterruptedException e) {
 			}
 			return true;
