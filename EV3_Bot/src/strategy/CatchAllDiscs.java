@@ -25,7 +25,6 @@ public class CatchAllDiscs implements Tactic {
 	boolean abort;
 	private AvoidFoe avoidfoe;
 	private GoBack goback;
-	private Date first;
 	private boolean followFromLeft;
 	private FindVLine findLine;
 	private FollowLine followLine;
@@ -36,7 +35,6 @@ public class CatchAllDiscs implements Tactic {
 	public CatchAllDiscs() {
 		this.disc = new PaletPosition();
 		abort = false;
-		first = null;
 		firstMove = new StraightMotion();
 	}
 
@@ -49,12 +47,14 @@ public class CatchAllDiscs implements Tactic {
 	@Override
 	public boolean handleObstacle() {
 		avoidfoe = new AvoidFoe();
+		name = avoidfoe.getDisplayName();
 		return true;
 	}
 
 	@Override
 	public boolean handleContact() {
 		goback = new GoBack();
+		name = goback.getDisplayName();
 		return true;
 	}
 
