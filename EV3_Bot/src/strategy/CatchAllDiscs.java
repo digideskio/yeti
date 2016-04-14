@@ -94,7 +94,7 @@ public class CatchAllDiscs implements Tactic {
 				}
 			} else if (discMissing) {
 				PaletPosition.discCaptured();
-				BasicMotion.moveBy(-620);
+				BasicMotion.moveBy(-500);
 				discMissing = false;
 			} else if (followLine != null) {
 				if (followLine.perform()) {
