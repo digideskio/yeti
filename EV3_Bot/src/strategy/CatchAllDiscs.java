@@ -30,6 +30,7 @@ public class CatchAllDiscs implements Tactic {
 	private FollowLine followLine;
 	private BasicColor hcolor, vcolor;
 	private StraightMotion firstMove;
+	private boolean discMissing;
 
 	
 	public CatchAllDiscs() {
@@ -91,11 +92,16 @@ public class CatchAllDiscs implements Tactic {
 					firstMove.updateGPS();
 					name = "CAD_first";
 				}
+			} else if (discMissing) {
+				PaletPosition.discCaptured();
+				BasicMotion.moveBy(-620);
+				discMissing = false;
 			} else if (followLine != null) {
 				if (followLine.perform()) {
 					followLine = null;
 					findLine = null;
 					name = null;
+					discMissing = true;
 				}
 			} else if (findLine != null) {
 				if (findLine.perform()) {

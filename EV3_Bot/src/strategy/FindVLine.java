@@ -59,6 +59,10 @@ public class FindVLine implements Tactic {
 		if (Bot.getSensorsCache().getColor() == color) {
 			stopped = true;
 			smotion.stop();
+			try {
+				Thread.sleep(500, 0);
+			} catch (InterruptedException e) {
+			}
 			return true;
 		}
 		

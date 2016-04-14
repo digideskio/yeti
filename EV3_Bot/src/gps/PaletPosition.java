@@ -56,7 +56,7 @@ public class PaletPosition {
 		return goToY;
 	}
 	
-	public BasicColor getGoToLine() {
+	public static BasicColor getGoToLine() {
 		return goToLine;
 	}
 
@@ -75,12 +75,17 @@ public class PaletPosition {
 	 */
 	public void nearestPalet(BasicColor excludedColor) {
 		double distMin = 1000000;
+		int baseX = 1053+1049, baseY;
+		if (!Bot.getGPS().isGreen)
+			baseY = 1240 + 1248 + 1233 + 1265; 
+		else
+			baseY = 0;
 		for (int i = 0; i < numberOfDiscs; i++) {
 			// calculates the shortest distance between Yeti and all discs with
 			// the absolute value
 			if (palets[i].isCaptured() == false && palets[i].getColorVDisc() != excludedColor) {
-				int compX = palets[i].getXdisc() - Bot.getGPS().getRawX();
-				int compY = palets[i].getYdisc() - Bot.getGPS().getRawY();
+				int compX = palets[i].getXdisc() - baseX;
+				int compY = palets[i].getYdisc() - baseY;
 				double dist = Math.sqrt(compX * compX + compY * compY);
 				// updates distMin
 				if (dist < distMin) {

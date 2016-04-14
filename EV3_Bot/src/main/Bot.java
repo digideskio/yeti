@@ -115,7 +115,7 @@ public class Bot {
 		println("Distance:" + String.format("%.1f", sonarDistance) + "cm", 3);
 		println("Tac:" + planner.getCurrentTacticName(), 4);
 		println("Color:" + cache.getColor(), 5);
-		println("FPS: " + FPS, 6);
+		println("FPS:" + FPS+", last:"+PaletPosition.getGoToLine(), 6);
 		FPS += 1;
 
 		// 5. Don't sample inputs too often to slightly reduce chances of
