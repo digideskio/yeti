@@ -1,7 +1,6 @@
 package motor;
 
 import lejos.hardware.motor.NXTRegulatedMotor;
-import lejos.robotics.RegulatedMotor;
 import main.Bot;
 import config.DefaultPorts;
 

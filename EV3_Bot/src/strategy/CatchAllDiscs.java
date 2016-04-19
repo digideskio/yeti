@@ -1,6 +1,5 @@
 package strategy;
 
-import java.util.Date;
 
 import sensors.BasicColor;
 
@@ -59,6 +58,7 @@ public class CatchAllDiscs implements Tactic {
 		return true;
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public boolean perform() {
 		if (abort == true) {

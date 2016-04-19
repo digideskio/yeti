@@ -1,6 +1,5 @@
 package strategy;
 
-import gps.PaletPosition;
 import main.Bot;
 import motor.BasicMotion;
 import motor.StraightMotion;

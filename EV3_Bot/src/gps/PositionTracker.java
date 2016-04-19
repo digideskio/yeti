@@ -95,6 +95,7 @@ public class PositionTracker {
 	 */
 	@SuppressWarnings("incomplete-switch")
 	public void crossLine(BasicColor color) {
+		@SuppressWarnings("unused")
 		boolean horizontal = false;
 		if (orientation.getAngle() > 0 && orientation.getAngle() < 45
 				|| orientation.getAngle() > 135 && orientation.getAngle() < 225
