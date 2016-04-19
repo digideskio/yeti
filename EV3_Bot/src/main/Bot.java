@@ -97,12 +97,12 @@ public class Bot {
 			// so anywhere under 10cm is guaranteed close contact
 			// With claws open we risk reaching 0cm with gives +inf,
 			// so 10cm is already getting pretty dangerous
-			planner.handleContact();
+			//planner.handleContact();
 		} else if (sonarDistance <= 30.f) {
 			// At 30cm we're getting close to an object, but
 			// still have some time to swerve around and we shouldn't
 			// get false positives from non-critical obstacles
-			planner.handleObstacle();
+			//planner.handleObstacle();
 		}
 
 		// 3. Perform our tactics

@@ -8,7 +8,7 @@ import sensors.BasicColor;
 public class FindVLine implements Tactic {
 	private StraightMotion smotion;
 	private BasicColor color;
-	private boolean stopped, right;
+	private boolean stopped, right, wentBack;
 	
 	public FindVLine(BasicColor color) {
 		this.color = color;
@@ -69,6 +69,11 @@ public class FindVLine implements Tactic {
 			angleDiff = Bot.getGPS().getOrientation().diff(-1, 0);
 		if (Math.abs(angleDiff) >= 1.)
 			BasicMotion.rotate((int)angleDiff, true);
+		
+		if (!wentBack) {
+			BasicMotion.moveBy(100);
+			wentBack = true;
+		}
 		
 		if (!smotion.isMoving())
 			smotion.start(true);
