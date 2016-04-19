@@ -77,6 +77,14 @@ public class FollowLine implements Tactic {
 
 		return false;
 	}
+	
+	public BasicColor getColor() {
+		return c;
+	}
+	
+	public BasicColor getStopColor() {
+		return stopColor;
+	}
 
 	@Override
 	public void abort() {

@@ -1,7 +1,6 @@
 package sensors;
 
 import sensors.ColorDetector;
-import config.DefaultPorts;
 
 /**
  * Caches the data from sensors in a centralized location,

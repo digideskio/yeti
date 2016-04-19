@@ -2,11 +2,9 @@
 import sensors.BasicColor;
 import sensors.ColorDetector;
 import gps.PositionTracker;
-import gps.TerrainLine;
 import config.DefaultPorts;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
-import lejos.hardware.motor.Motor;
 import lejos.utility.Delay;
 
 

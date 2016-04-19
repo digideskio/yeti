@@ -1,6 +1,5 @@
 package gps;
 
-import javax.management.RuntimeErrorException;
 
 import sensors.BasicColor;
 
@@ -49,6 +48,7 @@ public class PositionTracker {
 	 * horizontal is true if we believe that we crossed an hozirontal line,
 	 * false if we believe it was a vertical line
 	 */
+	@SuppressWarnings("incomplete-switch")
 	public void crossLine(BasicColor color, boolean horizontal) {	
 		switch(color) {
 		case Black:

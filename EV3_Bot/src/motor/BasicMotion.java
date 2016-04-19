@@ -1,5 +1,7 @@
 package motor;
 
+import java.util.Arrays;
+
 import config.DefaultPorts;
 import lejos.hardware.motor.NXTRegulatedMotor;
 import main.Bot;
@@ -22,10 +24,11 @@ public class BasicMotion {
 	}
 	public static void rotate(int deg, boolean waitForCompletion) {
 		double deg2tacho = 2.235;
+		int speed = 280;
 		lm.synchronizeWith(new NXTRegulatedMotor[]{rm});
 		lm.startSynchronization();
-		lm.setSpeed(360);
-		rm.setSpeed(360);
+		lm.setSpeed(speed);
+		rm.setSpeed(speed);
 		lm.rotate((int)(-deg*deg2tacho), true);
 		rm.rotate((int)(deg*deg2tacho), true);
 		lm.endSynchronization();
@@ -38,6 +41,9 @@ public class BasicMotion {
 	 * Move the robot (forward or backwards) by a given number of units and stops
 	 */
 	public static void moveBy(int units) {
+		Bot.log("MoveBy"+units+" stack:\n"
+				+Arrays.toString(Thread.currentThread().getStackTrace()));
+		
 		int maxSpeed = (int)lm.getMaxSpeed();
 		int minSpeed = 45;
 		int accelDist = 50, decelDist = 180;

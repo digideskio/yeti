@@ -1,6 +1,5 @@
 package strategy;
 
-import gps.PaletPosition;
 import main.Bot;
 import motor.BasicMotion;
 import motor.StraightMotion;
@@ -14,6 +13,7 @@ public class PaletBackBase implements Tactic {
 	private GoBack goback;
 	private MoveToTactic goCenter;
 	private static Boolean firstCapture;
+	private String name;
 	
 	PaletBackBase() {
 		if (firstCapture == null)
@@ -29,6 +29,8 @@ public class PaletBackBase implements Tactic {
 
 	@Override
 	public String getDisplayName() {
+		if (name != null)
+			return null;
 		return "PaletBackBase";
 	}
 
@@ -36,6 +38,7 @@ public class PaletBackBase implements Tactic {
 	public boolean handleObstacle() {
 		smotion.stop();
 		avoidfoe = new AvoidFoe();
+		name = avoidfoe.getDisplayName();
 		return true;
 	}
 
@@ -43,6 +46,7 @@ public class PaletBackBase implements Tactic {
 	public boolean handleContact() {
 		smotion.stop();
 		goback = new GoBack();
+		name = goback.getDisplayName();
 		return true;
 	}
 
@@ -63,7 +67,6 @@ public class PaletBackBase implements Tactic {
 			if (goCenter.perform()) {
 				goCenter = null;
 				firstCapture = true;
-				Bot.getGPS().rotatedBy(5);
 			}
 			return false;
 		}
@@ -78,6 +81,7 @@ public class PaletBackBase implements Tactic {
 		smotion.updateGPS();
 		
 		if (Bot.getSensorsCache().getColor() == BasicColor.White) {
+			Bot.log("Got back to the base");
 			smotion.stop();
 			BasicMotion.openClaw(true);
 			BasicMotion.moveBy(-180 * 2);

@@ -1,6 +1,5 @@
 package strategy;
 
-import java.util.Date;
 
 import sensors.BasicColor;
 
@@ -25,18 +24,17 @@ public class CatchAllDiscs implements Tactic {
 	boolean abort;
 	private AvoidFoe avoidfoe;
 	private GoBack goback;
-	private Date first;
 	private boolean followFromLeft;
 	private FindVLine findLine;
 	private FollowLine followLine;
 	private BasicColor hcolor, vcolor;
 	private StraightMotion firstMove;
+	private boolean discMissing;
 
 	
 	public CatchAllDiscs() {
 		this.disc = new PaletPosition();
 		abort = false;
-		first = null;
 		firstMove = new StraightMotion();
 	}
 
@@ -60,6 +58,7 @@ public class CatchAllDiscs implements Tactic {
 		return true;
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public boolean perform() {
 		if (abort == true) {
@@ -93,15 +92,25 @@ public class CatchAllDiscs implements Tactic {
 					firstMove.updateGPS();
 					name = "CAD_first";
 				}
+			} else if (discMissing) {
+				PaletPosition.discCaptured();
+				Bot.log("Disc missing, moving back");
+				BasicMotion.moveBy(-500);
+				discMissing = false;
 			} else if (followLine != null) {
 				if (followLine.perform()) {
+					Bot.log("Done following line "+followLine.getColor()
+							+" to "+followLine.getStopColor());
 					followLine = null;
 					findLine = null;
 					name = null;
+					discMissing = true;
 				}
 			} else if (findLine != null) {
 				if (findLine.perform()) {
 					followLine = new FollowLine(vcolor, hcolor, followFromLeft);
+					Bot.log("Trying to follow line "+vcolor+" to "+hcolor
+							+" from "+(followFromLeft ? "left" : "right"));
 					name = followLine.getDisplayName();
 					BasicMotion.moveBy(100);
 					if (followFromLeft) {
@@ -113,7 +122,7 @@ public class CatchAllDiscs implements Tactic {
 					}
 				}
 			} else {
-				this.disc.nearestPalet();				
+				this.disc.nearestLine();				
 				followFromLeft = !((Bot.getGPS().getRawX() < disc.getGoToX())
 										^ (Bot.getGPS().getRawY() < disc.getGoToY()));
 			
@@ -136,6 +145,7 @@ public class CatchAllDiscs implements Tactic {
 					throw new IllegalArgumentException("Invalid X position");
 				
 				findLine = new FindVLine(vcolor);
+				Bot.log("Trying to find vline "+vcolor+" for hline "+hcolor);
 				name = findLine.getDisplayName();
 			}
 

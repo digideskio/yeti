@@ -1,6 +1,8 @@
 package main;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import gps.DeparturePosition;
 import gps.PaletPosition;
@@ -23,7 +25,7 @@ public class Bot {
 	private static SonarSensor sonar;
 	private static SensorsCache cache;
 	private static int FPS = 0;
-	private static File logFile;
+	private static FileWriter logfile;
 
 	public static void println(String text, int y) {
 		String padding = "                    ";
@@ -31,10 +33,11 @@ public class Bot {
 	}
 
 	public static void log(String text) {
-		if (logFile == null) {
-			logFile = new File("Bot.log");
+		try {
+			logfile.write(text+"\n");
+			logfile.flush();
+		} catch (IOException e) {
 		}
-
 	}
 
 	/**
@@ -65,12 +68,16 @@ public class Bot {
 		button = new TouchSensor();
 		sonar = new SonarSensor();
 		cache = new SensorsCache(cd, button, sonar);
-		planner = new Planner();
-		new PaletPosition();
+		try {
+			logfile = new FileWriter("bot.log",true);
+		} catch (IOException e) {
+		}
 
 		println("Yeti Bot", 0);
 		DeparturePosition.choosePosition();
 		gps = new PositionTracker(DeparturePosition.getxDeparture(), DeparturePosition.getyDeparture());
+		planner = new Planner();
+		new PaletPosition();
 		BasicMotion.openClaw(true);
 
 		while (Button.ESCAPE.isUp()) {
@@ -115,7 +122,7 @@ public class Bot {
 		println("Distance:" + String.format("%.1f", sonarDistance) + "cm", 3);
 		println("Tac:" + planner.getCurrentTacticName(), 4);
 		println("Color:" + cache.getColor(), 5);
-		println("FPS: " + FPS, 6);
+		println("FPS:" + FPS+", last:"+PaletPosition.getGoToLine(), 6);
 		FPS += 1;
 
 		// 5. Don't sample inputs too often to slightly reduce chances of
