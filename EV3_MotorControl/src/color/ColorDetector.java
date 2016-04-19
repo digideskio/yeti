@@ -4,7 +4,6 @@ import java.io.Closeable;
 import config.DefaultPorts;
 
 
-import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.robotics.Color;
 import lejos.robotics.SampleProvider;

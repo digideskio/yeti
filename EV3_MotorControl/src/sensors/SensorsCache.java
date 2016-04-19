@@ -1,6 +1,5 @@
 package sensors;
 
-import config.DefaultPorts;
 
 /**
  * Caches the data from sensors in a centralized location,

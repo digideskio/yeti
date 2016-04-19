@@ -1,6 +1,5 @@
 
 import sensors.ColorDetector;
-import config.DefaultPorts;
 import sensors.ColorHSV;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;

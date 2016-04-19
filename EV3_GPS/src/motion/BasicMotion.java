@@ -1,7 +1,6 @@
 package motion;
 
 import config.DefaultPorts;
-import lejos.hardware.motor.Motor;
 import lejos.hardware.motor.NXTRegulatedMotor;
 
 /**

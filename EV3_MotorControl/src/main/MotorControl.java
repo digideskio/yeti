@@ -3,12 +3,9 @@ import gps.PositionTracker;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.Motor;
-import lejos.hardware.motor.NXTRegulatedMotor;
 import lejos.utility.Delay;
-import motor.BasicMotion;
 import motor.StraightMotion;
 import color.ColorDetector;
-import config.DefaultPorts;
 
 
 public class MotorControl {
@@ -33,11 +30,7 @@ public class MotorControl {
 		println("Orientation test", 1);
 		
 		StraightMotion sm = new StraightMotion();
-		NXTRegulatedMotor lm = DefaultPorts.getLeftMotor(),
-		 		 rm = DefaultPorts.getRightMotor();
-		//lm.rotate((int)(360*4.47));
 		sm.start(true);
-		//BasicMotion.rotate(360);
 		
 		while (Button.ESCAPE.isUp()) {
 			if (Button.ENTER.isDown()) {
