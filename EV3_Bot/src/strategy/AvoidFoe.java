@@ -35,6 +35,9 @@ public class AvoidFoe implements Tactic {
 	 */
 	@Override
 	public boolean perform() {
+		//faire 2 stratégies d'évitement
+		//une quand le robot a un palet
+		//une quand il n'en a pas
 		BasicMotion.rotate(90); // +90 so it is going to right
 		BasicMotion.moveBy(180 * 4);
 		BasicMotion.rotate(-90);

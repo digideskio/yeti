@@ -97,6 +97,8 @@ public class PositionTracker {
 	public void crossLine(BasicColor color) {
 		@SuppressWarnings("unused")
 		boolean horizontal = false;
+		//utiliser les coordonnées du robot avec des intervalles 
+		//de coordonnées proches de la ligne noire
 		if (orientation.getAngle() > 0 && orientation.getAngle() < 45
 				|| orientation.getAngle() > 135 && orientation.getAngle() < 225
 				|| orientation.getAngle() > 315) {
